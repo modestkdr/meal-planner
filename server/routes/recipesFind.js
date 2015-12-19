@@ -1,0 +1,15 @@
+import Express from 'express';
+let router = Express.Router ();
+
+router.get ('/', (request, response) => {
+  response.setHeader('Content-Type', 'application/json');
+  //request.query.ingredients
+  response.send ({
+	"recipes": {
+		"5160756f96cc6207a37ff777" : {"id" : "5160756f96cc6207a37ff777", "name" : "main dish", "ingredients" : "Dressing:\n1 tablespoon cumin seeds\n1/3 cup / 80 ml extra virgin olive oil\n2 tablespoons fresh lemon juice\n1 tablespoon honey\n1/2 teaspoon fine sea salt, plus more to taste\n1/8 teaspoon cayenne pepper\n10 ounces carrots, shredded on a box grater or sliced whisper thin on a mandolin\n2 cups cooked chickpeas (or one 15- ounce can, drained and rinsed)\n2/3 cup / 100 g  dried pluots, plums, or dates cut into chickpea-sized pieces\n1/3 cup / 30 g fresh mint, torn\nFor serving: lots of toasted almond slices, dried or fresh rose petals - all optional (but great additions!)", "url" : "http://www.101cookbooks.com/archives/moroccan-carrot-and-chickpea-salad-recipe.html", "image" : "http://placehold.it/100x100", "ts" : { "$date" : 1365276015332 }, "datePublished" : "2013-01-07", "source" : "101cookbooks", "prepTime" : "PT15M", "description" : "A beauty of a carrot salad - tricked out with chickpeas, chunks of dried pluots, sliced almonds, and a toasted cumin dressing. Thank you Diane Morgan." },
+		"5160757496cc6207a37ff778" : {"id": "5160757496cc6207a37ff778", "name" : "Pomegranate Yogurt Bowl", "ingredients" : "For each bowl: \na big dollop of Greek yogurt\n2 tablespoons fresh pomegranate juice\na drizzle of honey\na handful of puffed quinoa crisps (or other cereal/granola)\nsprinkling of toasted sunflower seeds\noptional: whole pomegranate seeds or fresh/dried rose petals, a bit of bee pollen", "url" : "http://www.101cookbooks.com/archives/pomegranate-yogurt-bowl-recipe.html", "image" : "http://placehold.it/100x100", "ts" : { "$date" : 1365276020318 }, "datePublished" : "2013-01-20", "source" : "101cookbooks", "recipeYield" : "Serves 1.", "prepTime" : "PT5M", "description" : "A simple breakfast bowl made with Greek yogurt, fresh pomegranate juice, puffed quinoa cereal, toasted sunflower seeds, and honey." },
+		 "5160757696cc6207a37ff779" : { "id" : "5160757696cc6207a37ff779","name" : "Za'atar", "ingredients" : "4 tablespoons fresh thyme leaves, stripped from stems (or equivalent dried)\n2  teaspoons ground sumac*\nscant 1/2 teaspoon fine sea salt, or to taste\n1 tablespoon toasted sesame seeds", "url" : "http://www.101cookbooks.com/archives/zaatar-recipe.html", "image" : "http://placehold.it/100x100", "ts" : { "$date" : 1365276022231 }, "cookTime" : "PT10M", "source" : "101cookbooks", "datePublished" : "2013-01-27", "prepTime" : "PT5M", "description" : "Za'atar is an incredibly versatile Middle Eastern spice blend, one of my favorites. Particularly this time of year when it's a welcome addition to all sorts of roasted vegetables, soups and stews, or simply sprinkled over everything from yogurt, to eggs, to savory granola." },
+	}});
+});
+
+export default router;
