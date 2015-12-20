@@ -97,8 +97,8 @@ var App = React.createClass({
 	},
 
 	_mealPlanOnEntityDrop(entity) {
-		console.log('entity dropped');
-		console.dir(entity);
+		//console.log('entity dropped');
+		//console.dir(entity);
 		this.setState({
 			entityInMealPlanner:entity
 		})
@@ -113,7 +113,7 @@ var App = React.createClass({
 		}
 
 		Superagent
-		  .get('http://localhost:3001/recipe/find?ingredients=' + ingredients.join(","))
+		  .get('/recipe/find?ingredients=' + ingredients.join(","))
 		  .set('Accept', 'application/json')
 		  .end(function(err, res){
 		  	var data = JSON.parse(res.text);
