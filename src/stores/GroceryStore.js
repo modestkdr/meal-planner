@@ -7,7 +7,6 @@ var Firebase = require('firebase');
 var CHANGE_EVENT = 'change';
 
 var _groceriesList = {};
-var _mealCalendarItems = {};
 
 function create(text) {
   var ref = new Firebase(ConfigConstants.Firebase_Root_Url + "groceries");
@@ -20,23 +19,6 @@ function create(text) {
           text: text
         }; 
       }    
-  });
-  ref.off();
-}
-
-function scheduleMeal(text,mealType,plannedFor) {
-  var ref = new Firebase(ConfigConstants.Firebase_Root_Url + "mealcalendar");
-  ref.on("child_added", function(snapshot) {
-
-    if(! _mealCalendarItems[snapshot.key()]) {
-      _mealCalendarItems[snapshot.key()] = {
-        id: snapshot.key(),
-        planned_for:plannedFor,
-        mealType:"item",
-        text: text
-      };
-
-    }    
   });
   ref.off();
 }
@@ -68,14 +50,6 @@ var GroceryStore = assign({}, EventEmitter.prototype, {
 
   getAll() {
     return _groceriesList;
-  },
-
-  getAllMealItems(){
-    return _mealCalendarItems;
-  },
-
-  setAllMealItems(mealCalendarItems) {
-    _mealCalendarItems = mealCalendarItems;
   },
 
   find(id){
@@ -200,11 +174,6 @@ AppDispatcher.register(function(action) {
 
     case AppConstants.RECIPE_FINDER_ITEM_DROP:
       update(action.id, {isInRecipeFinder:true});
-      GroceryStore.emitChange();
-      break;
-
-    case AppConstants.SCHEDULE_MEAL:
-      scheduleMeal(action.itemText,action.mealType,action.planned_for);
       GroceryStore.emitChange();
       break;
 

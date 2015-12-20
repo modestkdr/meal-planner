@@ -7,6 +7,7 @@ var ConfigConstants = require('../constants/ConfigConstants');
 var AppActions = require('../actions/AppActions');
 import GroceryStore from '../stores/GroceryStore';
 import RecipeStore from '../stores/RecipeStore';
+import MealStore from '../stores/MealStore';
 var PantryList = require('../components/ShopForList');
 var ShopForInput = require('../components/ShopForInput');
 var ShopForList = require('../components/ShopForList');
@@ -22,7 +23,7 @@ function getState(){
       shoppingList: GroceryStore.getShoppingList(),
       itemsInRecipeFinder: GroceryStore.getItemsInRecipeFinder(),
       recipesList:{},
-      mealCalendarItems:GroceryStore.getAllMealItems()
+      mealCalendarItems:MealStore.getAllMealItems()
     };
 }
 
@@ -69,17 +70,21 @@ var App = React.createClass({
 	      mealResult[mealItems[index][".key"]].id = mealItems[index][".key"];
 	    }
 	    /* Initally: Sync local store with remote DB */
-	    GroceryStore.setAllMealItems(mealResult);
+	    MealStore.setAllMealItems(mealResult);
 	    this.setState({
 	    	mealCalendarItems: mealResult
 	    });
 	  }.bind(this));
 
-		GroceryStore.addChangeListener(this._onChange);
+	  GroceryStore.addChangeListener(this._onChange);
+	  RecipeStore.addChangeListener(this._onChange);
+	  MealStore.addChangeListener(this._onChange);
 	},
 
 	componentWillUnmount() {		
 		GroceryStore.removeChangeListener(this._onChange);
+		RecipeStore.removeChangeListener(this._onChange);
+		MealStore.removeChangeListener(this._onChange);
 	},
 
 	_onChange() {

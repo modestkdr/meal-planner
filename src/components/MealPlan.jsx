@@ -8,8 +8,8 @@ var MealPlan = React.createClass({
 	_onDragOver(e){
   		if (e.preventDefault) e.preventDefault(); 
     	e.dataTransfer.dropEffect = 'copy';
-    	console.log('drag over');
-    	console.log(e.dataTransfer.getData('recipe'));
+    	//console.log('drag over');
+    	//console.log(e.dataTransfer.getData('recipe'));
     	return false;
   	},
 
