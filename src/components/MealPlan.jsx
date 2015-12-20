@@ -1,25 +1,48 @@
 import React from 'react';
 import GroceryStore from '../stores/GroceryStore';
+import RecipeStore from '../stores/RecipeStore';
+
 
 var MealPlan = React.createClass({
 
 	_onDragOver(e){
   		if (e.preventDefault) e.preventDefault(); 
     	e.dataTransfer.dropEffect = 'copy';
+    	console.log('drag over');
+    	console.log(e.dataTransfer.getData('recipe'));
     	return false;
   	},
 
 	_onDrop(e) {
 		if (e.stopPropagation) e.stopPropagation();
-      	var droppedItem = GroceryStore.find(e.dataTransfer.getData('item'));
-      	this.props.mealPlanOnItemDrop(droppedItem);
+		var droppedEntity;
+		//console.log('data transfer drop');
+
+		if(e.dataTransfer.getData('recipe')) {
+			droppedEntity = RecipeStore.find(e.dataTransfer.getData('recipe'));
+		}
+
+		if(e.dataTransfer.getData('item')) {
+	      	droppedEntity = GroceryStore.find(e.dataTransfer.getData('item'));
+		}
+
+		//console.log(droppedEntity);
+
+		this.props.mealPlanOnEntityDrop(droppedEntity);
+
 	    return false;
   	},
 
-  	_getDroppedItem(){
+  	_getDroppedEntity() {
+
   		var result = '';
-  		if(typeof this.props.droppedItem !== 'undefined'){
-  			result = this.props.droppedItem.text;
+  		if(typeof this.props.droppedEntity !== 'undefined' && 
+  			typeof this.props.droppedEntity.text !== 'undefined'){
+  			result = this.props.droppedEntity.text;
+  		}
+  		if(typeof this.props.droppedEntity !== 'undefined' && 
+  			typeof this.props.droppedEntity.recipeName !== 'undefined'){
+  			result = this.props.droppedEntity.recipeName;
   		}
   		return result;
   	},
@@ -47,16 +70,16 @@ var MealPlan = React.createClass({
 			   newDate.getUTCSeconds();
 	},
 
-	getFormBtn(){
-		if(typeof this.props.droppedItem !== 'undefined'){
+	getFormBtn() {
+		if(typeof this.props.droppedEntity !== 'undefined'){
 			return (<button onClick={this._onFormSubmit} type="submit" className="btn btn-default">Submit</button>);
 		} else {
 			return '';
 		}
 	},
 
-	getInputTimestampField(){
-		if(typeof this.props.droppedItem !== 'undefined'){
+	getInputTimestampField() {
+		if(typeof this.props.droppedEntity !== 'undefined'){
 			return (<input onChange={this._onChange} id="newMealTimestamp" type="datetime-local" 
 				    	className="form-control" />);
 		} else {
@@ -72,7 +95,7 @@ var MealPlan = React.createClass({
 		        <div className="clearfix"></div>
 				<form>
 					<div className="form-group">
-					    <div>{this._getDroppedItem()}</div>
+					    <div>{this._getDroppedEntity()}</div>
 				  </div>
 				  <div className="form-group">
 				  	{this.getInputTimestampField()}

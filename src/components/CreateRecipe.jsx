@@ -5,6 +5,8 @@ var CreateRecipe = React.createClass({
 	getInitialState() {
 	    return {
 	      'newRecipeName': '',
+	      'newRecipeIngredients':'',
+	      'newRecipeInstructions':'',
 	      'newRecipeCookingTime':'',
 	      'newRecipeYield':''
 	    };
@@ -15,6 +17,8 @@ var CreateRecipe = React.createClass({
 
 		this.props.onNewRecipeFormSubmit(
 			this.state.newRecipeName,
+			this.state.newRecipeIngredients,
+			this.state.newRecipeInstructions,
 			this.state.newRecipeCookingTime,
 			this.state.newRecipeYield
 		);

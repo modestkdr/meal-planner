@@ -1,19 +1,19 @@
 import React from 'react';
+var RecipeCard = require('./RecipeCard');
 
 var RecipesList = React.createClass({
 
   getItems(){
-  	var items = this.props.items;
+  	var recipes = this.props.recipes;
+    //console.log(items);
   	var result = [];
 
-  	for(var item in items) {
+  	for(var index in recipes) {
   		result.push(
-  			<li  draggable="true" className="col-md-4" key={item}>
-  				<img width='100' height='100' src={items[item].image} />
-  				<div>{items[item].name}</div>
-  			</li>
+        <RecipeCard key={index} recipe={recipes[index]} />
   		);
   	}
+
   	return result;
   },
 

@@ -6,6 +6,7 @@ var Superagent = require('superagent');
 var ConfigConstants = require('../constants/ConfigConstants');
 var AppActions = require('../actions/AppActions');
 import GroceryStore from '../stores/GroceryStore';
+import RecipeStore from '../stores/RecipeStore';
 var PantryList = require('../components/ShopForList');
 var ShopForInput = require('../components/ShopForInput');
 var ShopForList = require('../components/ShopForList');
@@ -95,10 +96,11 @@ var App = React.createClass({
 		AppActions.toggleIsInRecipeFinder(item);
 	},
 
-	_mealPlanOnItemDrop(item) {
-				
+	_mealPlanOnEntityDrop(entity) {
+		console.log('entity dropped');
+		console.dir(entity);
 		this.setState({
-			itemInMealPlanner:item
+			entityInMealPlanner:entity
 		})
 	},
 
@@ -111,14 +113,17 @@ var App = React.createClass({
 		}
 
 		Superagent
-		  .get('http://localhost:3001/recipes/find?ingredients=' + ingredients.join(","))
+		  .get('http://localhost:3001/recipe/find?ingredients=' + ingredients.join(","))
 		  .set('Accept', 'application/json')
 		  .end(function(err, res){
 		  	var data = JSON.parse(res.text);
+		  	//console.log(data);
 
 		  	this.setState({
 		  		recipesList:data.recipes,
 		  	});
+		  	RecipeStore.setAll(data.recipes);
+
 		  }.bind(this));
 
 		  // For each item in recipe finder, set isInRecipeFinder to false 
@@ -126,7 +131,26 @@ var App = React.createClass({
 	},
 
 	_onNewRecipeFormSubmit(recipeName,recipeIngredients,recipeInstructions,recipeCookingTime,recipeYield) {
-		console.log('Add this new recipe to recipe store' + recipeName);
+		//console.log('Add this new recipe to recipe store' + recipeName);
+		Superagent
+		   .post('/recipe/add')
+		   .send({
+		   		recipeName: recipeName,
+		   		recipeIngredients: recipeIngredients,
+		   		recipeInstructions: recipeInstructions,
+		   		recipeCookingTime: recipeCookingTime,
+		   		recipeYield: recipeYield
+		   	})
+		   .set('Accept', 'application/json')
+		   .end(function(err, res){
+		     if (err || !res.ok) {
+		       console.log('error');
+		     } else {
+		     	console.log('xhr success');
+		    	console.log(JSON.stringify(res.body));
+		     }
+		   });
+
 	},
 
 	// Display form to add a new recipe only when there are item(s) in recipe finder
@@ -146,9 +170,15 @@ var App = React.createClass({
 	},
 
 	_mealPlannerFormSubmit(newMealTimestamp){
-		AppActions.scheduleMeal(this.state.itemInMealPlanner.text,newMealTimestamp);
+		var mealType = "item";
+		if(this.state.entityInMealPlanner.recipeName){
+			mealType = "recipe";
+		}
+		
+		AppActions.scheduleMeal(mealType,this.state.entityInMealPlanner,newMealTimestamp);
+
 		this.setState({
-			itemInMealPlanner:{}
+			entityInMealPlanner:{}
 		});
 		document.getElementById('newMealTimestamp').value = '';
 	},
@@ -195,16 +225,16 @@ var App = React.createClass({
 			        			isShowSubmitBtn={this.doesRecipeFinderHaveItems()} />
 			        		<RecipesList 
 			        			listClassName="draggable-list" 
-			        			items={this.state.recipesList} />
+			        			recipes={this.state.recipesList} />
 						</section>
 						<section className="col-md-6">
-							{/*this.getCreateRecipeForm()*/}
+							{this.getCreateRecipeForm()}
 			        	</section>
 		        	</section>
 		        	<section className="col-md-4">
 						<MealPlan 
-							mealPlanOnItemDrop={this._mealPlanOnItemDrop} 
-							droppedItem={this.state.itemInMealPlanner}
+							mealPlanOnEntityDrop={this._mealPlanOnEntityDrop}
+							droppedEntity={this.state.entityInMealPlanner}
 							mealPlannerFormSubmit={this._mealPlannerFormSubmit} 
 							headingText="Plan a Meal" />
 					</section>

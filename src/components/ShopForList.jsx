@@ -7,7 +7,7 @@ var ShopForList = React.createClass({
   		var result = [];
   		var items = this.props.items;
   		for(var index in items) {
-  			result.push(<ShopForItem draggable={this.props.draggable} key={items[index].id} item={items[index]} />);
+  			result.push(<ShopForItem draggable={this.props.draggable} key={index} item={items[index]} />);
   		}
 
   		return result;

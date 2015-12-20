@@ -64,21 +64,39 @@ var AppActions = {
     });
   },
 
-  scheduleMeal(itemText,timestamp){
-    var firebaseRef = new Firebase(ConfigConstants.Firebase_Root_Url + 'mealcalendar');
+  scheduleMeal(mealType,entity,timestamp){
     
-    firebaseRef.push({
-        text: itemText,
-        planned_for:timestamp,
-        mealType:"item"
-    });
+    var firebaseRef = new Firebase(ConfigConstants.Firebase_Root_Url + 'mealcalendar');
 
-    AppDispatcher.dispatch({
-      actionType: AppConstants.SCHEDULE_MEAL,
-      itemText:itemText,
-      mealType:"item",
-      planned_for:timestamp
-    });
+    if(mealType === "recipe")
+    {
+      firebaseRef.push({
+        text: entity.recipeName,
+        planned_for:timestamp,
+        mealType:"recipe"
+      });
+
+      AppDispatcher.dispatch({
+        actionType: AppConstants.SCHEDULE_MEAL,
+        itemText:entity.recipeName,
+        mealType:"recipe",
+        planned_for:timestamp
+      });
+
+    } else {
+        firebaseRef.push({
+          text: entity.text,
+          planned_for:timestamp,
+          mealType:"item"
+        });
+
+        AppDispatcher.dispatch({
+          actionType: AppConstants.SCHEDULE_MEAL,
+          itemText:entity.text,
+          mealType:"item",
+          planned_for:timestamp
+        });
+    }
   },
 
   unsetAllItemsInRecipeFinder(items){
