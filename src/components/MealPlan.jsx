@@ -91,7 +91,7 @@ var MealPlan = React.createClass({
 		return (
 			<section onDrop={this._onDrop} onDragOver={this._onDragOver}>
 				<h3>{this.props.headingText}</h3>
-				<div className="well well-sm">Drag and drop items or recipes here</div>
+				<div className="well well-sm">Drag and drop a recipe or an item from pantry here</div>
 		        <div className="clearfix"></div>
 				<form>
 					<div className="form-group">

@@ -35,7 +35,7 @@ var Bin = React.createClass({
 
     getFindRecipesBtn() {
       if(this.props.isShowSubmitBtn){
-        return (<button className="btn btn-default" onClick={this._findRecipes}>{this.props.btnText}</button>);
+        return (<button className="btn btn-primary" onClick={this._findRecipes}>{this.props.btnText}</button>);
       } else {
         return '';
       }

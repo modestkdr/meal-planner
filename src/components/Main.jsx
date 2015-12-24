@@ -172,7 +172,7 @@ var App = React.createClass({
 				      	<CreateRecipe 
 				      		ingredients={this.state.itemsInRecipeFinder} 
 				      		onNewRecipeFormSubmit={this._onNewRecipeFormSubmit} 
-				       		headingText="Add a new recipe" /> 
+				       		headingText="Add a New Recipe" /> 
 			        </section>
 				);
 			} else {
