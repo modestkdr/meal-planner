@@ -3,7 +3,7 @@ let router = Express.Router ();
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-var url = 'mongodb://localhost:27017/recipes';
+var url = 'mongodb://localhost:27017/mealplanner';
 
 var findRecipes = function(db,reqIngredients, callback) {
 	reqIngredients = reqIngredients.split(",");
@@ -23,9 +23,9 @@ var findRecipes = function(db,reqIngredients, callback) {
 	      if (err) {
 	        console.log(err);
 	      } else if (result.length) {
-			console.log('Docs found');
+			//console.log('Docs found');
 	      } else {
-	        console.log('No docs found');
+	        console.log('No recipes found');
 	      }
 	      callback(result);
 	      db.close();

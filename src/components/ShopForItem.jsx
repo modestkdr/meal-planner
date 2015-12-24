@@ -21,6 +21,18 @@ var ShopForItem = React.createClass({
     
   },
 
+  getItemImg(){
+    var itemName = this.props.item.text.toLowerCase();
+    itemName = itemName.replace(" ","-");
+
+    //console.log(itemName);
+    var itemImgSrc = "/images/groceries/" + itemName + ".jpg";
+
+    return (
+      <img className="img-responsive" src={itemImgSrc} />
+    );
+  },
+
   render() {
   	var item = this.props.item;
 
@@ -28,17 +40,32 @@ var ShopForItem = React.createClass({
 
       <li className="list-group-item" 
           onDragStart={this._onDragStart} draggable={this.props.draggable} key={this.props.key}>
-      <input
-            className="toggle show-inline"
-            type="checkbox"
-            checked={item.complete}
-            onChange={this._onToggleComplete}
-          />
-      	{item.text} {'  '}
-        <button  onClick={this._remove}  className="btn btn-default btn-sm pull-right show-inline" 
-          type="button" aria-label="Remove">
-            <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
-        </button>
+          <div className="row">
+              {this.getItemImg()}
+              <div 
+                style={{
+                  'position':'absolute',
+                  'height':45,
+                  'width':"100%",
+                  'maxHeight':60,
+                  'bottom':10,
+                  'color':'white',
+                  'background':'rgba(0, 0, 0, 0.61)'
+                }} 
+                className="container-fluid">
+                  <div className="container-fluid text-center">
+                    <input
+                    className="toggle show-inline"
+                    type="checkbox"
+                    checked={item.complete}
+                    onChange={this._onToggleComplete}
+                    />
+                    {item.text}
+                    <button  onClick={this._remove}  className="pull-right" 
+                      type="button" aria-label="Remove">x</button>
+                  </div>
+              </div>
+          </div>          
       </li>
     );
   }

@@ -2,21 +2,35 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var ConfigConstants = require('../constants/ConfigConstants');
 var Firebase = require('firebase');
+var Superagent = require('superagent');
 
 var AppActions = {
 
   create(text) {
-    var firebaseRef = new Firebase(ConfigConstants.Firebase_Root_Url + 'groceries');
-    firebaseRef.push({
-        text: text,
-        isInPantry:false,
-        isInRecipeFinder:false
-      });
+    
+    Superagent
+       .post('/grocery/add')
+       .send({
+          text: text,
+          isInPantry:false,
+          isInRecipeFinder:false
+        })
+       .set('Accept', 'application/json')
+       .end(function(err, res){
+         if (err || !res.ok) {
+           console.log('grocery add: error');
+         } else {
+          //console.log('grocery create: xhr success');
+          //console.log(res.body.groceryId);
 
-    AppDispatcher.dispatch({
-      actionType: AppConstants.SHOP_FOR_CREATE,
-      text: text
-    });
+          AppDispatcher.dispatch({
+            actionType: AppConstants.SHOP_FOR_CREATE,
+            text: text,
+            id: res.body.groceryId
+          });
+
+         }
+       });
   },
 
   updateText(id, text) {
@@ -29,10 +43,21 @@ var AppActions = {
 
   toggleIsInRecipeFinder(item) {
 
-    var firebaseRef = new Firebase(ConfigConstants.Firebase_Root_Url + 'groceries');
-    firebaseRef.child(item.id).update({
-      isInRecipeFinder: ! item.isInRecipeFinder
-    });
+    Superagent
+       .post('/grocery/update')
+       .send({
+          id: item.id,
+          isInRecipeFinder: ! item.isInRecipeFinder
+        })
+       .set('Accept', 'application/json')
+       .end(function(err, res){
+         if (err || !res.ok) {
+           console.log('grocery update: error');
+         } else {
+          //console.log('grocery update: xhr success');
+          //console.log(JSON.stringify(res.body));
+         }
+       });
 
     AppDispatcher.dispatch({
       actionType: AppConstants.RECIPE_FINDER_ITEM_DROP,
@@ -41,12 +66,24 @@ var AppActions = {
   },
 
   toggleComplete(item) {
+    
     var actionType = item.isInPantry ? AppConstants.SHOP_FOR_UNDO_COMPLETE : AppConstants.SHOP_FOR_COMPLETE;
 
-    var firebaseRef = new Firebase(ConfigConstants.Firebase_Root_Url + 'groceries');
-    firebaseRef.child(item.id).update({
-      isInPantry: ! item.isInPantry
-    });
+    Superagent
+       .post('/grocery/update')
+       .send({
+          id: item.id,
+          isInPantry: ! item.isInPantry
+        })
+       .set('Accept', 'application/json')
+       .end(function(err, res){
+         if (err || !res.ok) {
+           console.log('grocery update: error');
+         } else {
+          //console.log('grocery update: xhr success');
+          //console.log(JSON.stringify(res.body));
+         }
+       });
 
     AppDispatcher.dispatch({
       actionType: actionType,
@@ -55,8 +92,21 @@ var AppActions = {
   },
 
   destroy(id) {
-    var firebaseRef = new Firebase(ConfigConstants.Firebase_Root_Url + 'groceries');
-    firebaseRef.child(id).remove();
+
+    Superagent
+       .post('/grocery/remove')
+       .send({
+          id: id
+        })
+       .set('Accept', 'application/json')
+       .end(function(err, res){
+         if (err || !res.ok) {
+           console.log('grocery remove: error');
+         } else {
+          //console.log('grocery remove: xhr success');
+          //console.log(JSON.stringify(res.body));
+         }
+       });
 
     AppDispatcher.dispatch({
       actionType: AppConstants.SHOP_FOR_DESTROY,
@@ -99,13 +149,25 @@ var AppActions = {
     }
   },
 
-  unsetAllItemsInRecipeFinder(items){
-    var firebaseRef = new Firebase(ConfigConstants.Firebase_Root_Url + 'groceries');
+  unsetAllItemsInRecipeFinder(items) {
 
     for(var index in items){
-      firebaseRef.child(items[index].id).update({
-        isInRecipeFinder: false
-      });
+      
+      Superagent
+       .post('/grocery/update')
+       .send({
+          id: items[index].id,
+          isInRecipeFinder: false
+        })
+       .set('Accept', 'application/json')
+       .end(function(err, res){
+         if (err || !res.ok) {
+           console.log('grocery update: error');
+         } else {
+          //console.log('grocery update: xhr success');
+          //console.log(JSON.stringify(res.body));
+         }
+       });
     }
 
     AppDispatcher.dispatch({

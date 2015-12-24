@@ -3,11 +3,26 @@
     <title>Meal Planner</title>
     <link rel="stylesheet" media="screen" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
     <style type="text/css">
+    .fixed-height::-webkit-scrollbar {
+        width: .5em;
+    }
+    .fixed-height::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }
+    .fixed-height::-webkit-scrollbar-thumb {
+      background-color: darkgrey;
+      outline: 1px solid slategrey;
+    }
+    body,#app {background: rgba(18, 19, 20, 0.86);}
+    h2,h3,h4,span,div {color:#dfe0e6;}
+    .well{color:#777;}
+    .list-group-item{background:transparent;color:#fcfcfc;border:1px solid #484747;}
+    .fixed-height{min-height:10rem;max-height:80rem;overflow-y:scroll;}
     #app li {text-transform: capitalize;}
     .show-inline {display: inline-block;}
     .draggable-list li:hover {cursor: pointer;}
     .list-group {min-height: 5rem;}
-    #app li span {padding-left: 2rem;}
+    /*#app li span {padding-left: 2rem;}*/
     #app li input[type=checkbox] {position: absolute;left:10px;}
     #app li button,
     #app li button:hover {border: 0;background: none;}
@@ -20,5 +35,8 @@
     <div id="content"></div>
     <div id="app"></div>
     <script type="text/javascript" src="src/App.js"></script>
+    <script>
+        document.getElementById("newGroceryInput").focus();
+    </script>
   </body>
 </html>

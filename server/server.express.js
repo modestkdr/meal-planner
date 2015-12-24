@@ -1,10 +1,12 @@
 import Express from "express";
 import {
-  RecipesFind, Recipe,RecipeAdd
+  GroceryAdd,GroceryUpdate,GroceryRemove,GroceriesFind,RecipesFind,Recipe,RecipeAdd
 } from './routes';
 
 export default function (port, isProduction) {
   var server = Express ();
+  server.use(Express.static('assets'));
+  
   var bodyParser = require('body-parser');
   
 
@@ -25,6 +27,10 @@ export default function (port, isProduction) {
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({ extended: true }));
 
+  server.use('/grocery/add', GroceryAdd);
+  server.use('/grocery/update', GroceryUpdate);
+  server.use('/grocery/remove',GroceryRemove);
+  server.use('/grocery/find',GroceriesFind);
   server.use('/recipe/add', RecipeAdd);
   server.use('/recipe/find', RecipesFind);
   server.use('/recipe/id', Recipe);

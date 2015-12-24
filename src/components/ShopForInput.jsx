@@ -30,7 +30,7 @@ var ShopForInput = React.createClass({
 
   render: function() {
     return (
-      <input type="text" placeholder={this.props.placeholder}
+      <input type="text" id="newGroceryInput" placeholder={this.props.placeholder}
       	onBlur={this._save}
         onChange={this._onChange}
         onKeyDown={this._onKeyDown}

@@ -42,7 +42,11 @@ var Bin = React.createClass({
     },
 
     getListHeading(){
-      return (<h4>Ingredients</h4>);
+      if(this.props.isShowSubmitBtn){
+        return (<h4>Ingredients</h4>);
+      } else {
+        return '';
+      }
     },
 
   render() {

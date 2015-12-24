@@ -7,30 +7,19 @@ var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/mealplanner';
 
 var insertDocument = function(db, reqData, callback) {
+	console.log('grocery add: request data');
+	console.log(reqData);
 	
-	//Convert ingredients from string (with newlines) to Array
-	reqData.recipeIngredients = reqData.recipeIngredients.split("\n");
+	var grocery = reqData;
 
-	var recipeIngredientsArr = [];
-	for(var index in reqData.recipeIngredients) {
-		recipeIngredientsArr.push(reqData.recipeIngredients[index].toLowerCase());
-	}
-	reqData.recipeIngredients = recipeIngredientsArr;
-	
-	db.collection('recipes').insertOne(reqData, function(err, result) {
+	db.collection('groceries').insertOne(reqData, function(err, result) {
     	assert.equal(err, null);
-    	//console.log("Inserted a document into the recipes collection.");
-    	//console.log('result');
-    	//console.log(result);
     	callback(result);
   });
 };
 
 router.post('/', (request, response) => {
-	
 	var reqData = request.body;
-	//console.log('Request data');
-	//console.log(reqData);
 
 	MongoClient.connect(url, function(err, db) {
 
@@ -42,7 +31,7 @@ router.post('/', (request, response) => {
     	
     	response.setHeader('Content-Type', 'application/json');
 	  	response.send ({
-			"recipeId": result.insertedId
+			"groceryId": result.insertedId
 		});
 
 	  });

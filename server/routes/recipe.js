@@ -4,7 +4,7 @@ let router = Express.Router ();
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-var url = 'mongodb://localhost:27017/test';
+var url = 'mongodb://localhost:27017/mealplanner';
 
 router.get ('/:id', (request, response) => {
   response.setHeader('Content-Type', 'application/json');

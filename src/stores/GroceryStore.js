@@ -8,19 +8,13 @@ var CHANGE_EVENT = 'change';
 
 var _groceriesList = {};
 
-function create(text) {
-  var ref = new Firebase(ConfigConstants.Firebase_Root_Url + "groceries");
-  ref.on("child_added", function(snapshot) {
-      if(! _groceriesList[snapshot.key()]) {
-        _groceriesList[snapshot.key()] = {
-          id: snapshot.key(),
-          isInPantry: false,
-          isInRecipeFinder:false,
-          text: text
-        }; 
-      }    
-  });
-  ref.off();
+function create(text,id) {
+  _groceriesList[id] = {
+    id: id,
+    isInPantry: false,
+    isInRecipeFinder:false,
+    text: text
+  }; 
 }
 
 function update(id, updates) {
@@ -144,7 +138,7 @@ AppDispatcher.register(function(action) {
     case AppConstants.SHOP_FOR_CREATE:
       text = action.text.trim();
       if (text !== '') {
-        create(text);
+        create(text,action.id);
         GroceryStore.emitChange();
       }
       break;

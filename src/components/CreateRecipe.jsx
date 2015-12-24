@@ -53,6 +53,17 @@ var CreateRecipe = React.createClass({
 		}
 	},
 
+	// Get ingredients - already available in the recipe finder
+	getIngredients(){
+		var ingredients = this.props.ingredients;
+		var result = '';
+
+		for(var index in ingredients){
+			result += ingredients[index].text + "\n";
+		}
+		return result;
+	},
+
 	render() {
 		return (
 			<section>
@@ -65,7 +76,7 @@ var CreateRecipe = React.createClass({
 				  <div className="form-group">
 				    <textarea placeholder="Ingredients - one per line" onChange={this._onChange} 
 				    	id="newRecipeIngredients" 
-				    	type="textarea" 
+				    	type="textarea" value={this.getIngredients()}
 				    	className="form-control" />
 				  </div>
 				  <div className="form-group">
@@ -75,16 +86,16 @@ var CreateRecipe = React.createClass({
 				    	className="form-control" />
 				  </div>
 				  <div className="form-group">
-				    <input onChange={this._onChange} min="1" type="number" className="form-control" 
+				    <input onChange={this._onChange} min="1" value="15" type="number" className="form-control" 
 				    	id="newRecipeCookingTime"
 				    	placeholder="Cooking time in minutes"/>
 				  </div>
 				  <div className="form-group">
-				    <input onChange={this._onChange} min="1" type="number" className="form-control" 
+				    <input onChange={this._onChange} min="1" value="1" type="number" className="form-control" 
 				    	id="newRecipeYield"
 				    	placeholder="Recipe yield" />
 				  </div>
-					<button type="submit" onClick={this._onFormSubmit} className="btn btn-default">Submit</button>
+					<button type="submit" onClick={this._onFormSubmit} className="btn btn-primary">Submit</button>
 				</form>
 			</section>
 		);

@@ -35,24 +35,29 @@ var App = React.createClass({
 
 	componentDidMount() {	
 	  var items = [];
-	  var result = {};
 
-	  var firebaseRef = new Firebase(ConfigConstants.Firebase_Root_Url + 'groceries');
-	  firebaseRef.limitToLast(25).on('value', function(dataSnapshot) {
-	    dataSnapshot.forEach(function(childSnapshot) {
-	      var item = childSnapshot.val();
-	      item['.key'] = childSnapshot.key();
-	      items.push(item);
-	    });
+	  /* MongoDB - get groceries from DB */
+	  Superagent
+		  .get('/grocery/find')
+		  .set('Accept', 'application/json')
+		  .end(function(err, res){
 
-	    for(var index in items){
-	      result[items[index][".key"]] = items[index];
-	      result[items[index][".key"]].id = items[index][".key"];
-	    }
-	    /* Initally: Sync local store with remote DB */
-	    GroceryStore.setAll(result);
-	    this.setState(getState());
-	  }.bind(this));
+		  	var data = JSON.parse(res.text);
+		  	var groceries = data.groceries;
+		  	var result = {};
+
+		  	//console.log('groceries');
+		  	//console.log(groceries);
+		  	
+		  	for(var index in groceries){
+		  		result[groceries[index]["_id"]] = groceries[index];
+		    	result[groceries[index]["_id"]].id = groceries[index]["_id"];
+		    }
+		  	
+		  	GroceryStore.setAll(result);
+		  	this.setState(getState());
+
+		  }.bind(this));
 
 	  /* Get meal data from remote DB */
 	  var mealItems = [];
@@ -151,8 +156,8 @@ var App = React.createClass({
 		     if (err || !res.ok) {
 		       console.log('error');
 		     } else {
-		     	console.log('xhr success');
-		    	console.log(JSON.stringify(res.body));
+		     	//console.log('xhr success');
+		    	//console.log(JSON.stringify(res.body));
 		     }
 		   });
 
@@ -164,7 +169,9 @@ var App = React.createClass({
 			if(item) {
 				return (
 					<section>
-				      	<CreateRecipe onNewRecipeFormSubmit={this._onNewRecipeFormSubmit} 
+				      	<CreateRecipe 
+				      		ingredients={this.state.itemsInRecipeFinder} 
+				      		onNewRecipeFormSubmit={this._onNewRecipeFormSubmit} 
 				       		headingText="Add a new recipe" /> 
 			        </section>
 				);
@@ -198,29 +205,51 @@ var App = React.createClass({
 		}
 	},
 
+	_onToggleListBtnClick(){
+		if(document.getElementById("shopping-list-container").offsetHeight === 0){
+			document.getElementById("shopping-list-container").style.display = '';
+			document.getElementById("pantry-list-container").style.display = 'none';
+		} else {
+			document.getElementById("pantry-list-container").style.display = '';
+			document.getElementById("shopping-list-container").style.display = 'none';
+		}
+
+	},
+
 	render() {
 		return (
 			<section>
 				<section className="container-fluid">
-					<section className="col-md-4">
-				      	<h3>Shopping List</h3>
-				      	<ShopForInput 
-				      		onSave={this._onSave} 
-				      		placeholder="Add a new item here.." />
-				      	<p>{' '}</p>
-				      	<ShopForList 
-				      		listClassName="" 
-				      		draggable="false" 
-				      		items={this.state.shoppingList} />
-						<h3>Pantry</h3>
-						<br/>
-				        <PantryList 
-				        	listClassName="draggable-list" 
-				        	draggable="true" 
-				        	items={this.state.pantryList} />
+					<section className="col-md-3">
+						<div className="row">
+							<button className="text-center btn btn-primary btn-xs"
+							      			onClick={this._onToggleListBtnClick} 
+							      			id="toggle-list-btn">
+							      			Toggle 
+							</button>
+						</div>
+						<div className="col-md-8">
+							<section id="shopping-list-container">
+								<h3>Shopping List</h3>								
+						      	<ShopForInput 
+						      		onSave={this._onSave} 
+						      		placeholder="Add a new item here.." />
+						      	<ShopForList 
+						      		listClassName="fixed-height" 
+						      		draggable="false" 
+						      		items={this.state.shoppingList} />
+						    </section>
+							<section id="pantry-list-container">
+								<h3>Pantry</h3>
+						        <PantryList 
+						        	listClassName="fixed-height draggable-list" 
+						        	draggable="true" 
+						        	items={this.state.pantryList} />
+					        </section>
+					    </div>
 					</section>
 		        	<section className="col-md-8">
-						<section className="col-md-6">
+						<section className="col-md-5">
 							<RecipeFinder
 								btnText="Find Recipes" 
 					        	onRecipeFinderSubmit={this._onRecipeFinderSubmit} 
@@ -232,17 +261,18 @@ var App = React.createClass({
 			        			listClassName="draggable-list" 
 			        			recipes={this.state.recipesList} />
 						</section>
+						<div className="col-md-1"></div>
 						<section className="col-md-6">
 							{this.getCreateRecipeForm()}
 			        	</section>
-		        	</section>
-		        	<section className="col-md-4">
-						<MealPlan 
-							mealPlanOnEntityDrop={this._mealPlanOnEntityDrop}
-							droppedEntity={this.state.entityInMealPlanner}
-							mealPlannerFormSubmit={this._mealPlannerFormSubmit} 
-							headingText="Plan a Meal" />
-					</section>
+			        	<section className="row col-md-6">
+							<MealPlan 
+								mealPlanOnEntityDrop={this._mealPlanOnEntityDrop}
+								droppedEntity={this.state.entityInMealPlanner}
+								mealPlannerFormSubmit={this._mealPlannerFormSubmit} 
+								headingText="Plan a Meal" />
+						</section>
+		        	</section>		        	
 				</section>
 				<section className="container-fluid">
 					<section className="">
