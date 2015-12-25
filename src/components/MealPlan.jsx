@@ -75,8 +75,21 @@ var MealPlan = React.createClass({
 	},
 
 	getInputTimestampField() {
-			return (<input onChange={this._onChange} id="newMealTimestamp" type="datetime-local" 
+			return (<input value={this.getFormattedTimestampStr()} 
+						onChange={this._onChange} 
+						id="newMealTimestamp" 
+						type="datetime-local" 
 				    	className="form-control" />);
+	},
+
+	// default value for timestamp field
+	getFormattedTimestampStr(){
+		var currentDate = new Date();
+		var timezoneOffset = currentDate.getTimezoneOffset() * 60 * 1000;
+		var localDate = new Date(currentDate.getTime() - timezoneOffset);
+		// @todo refactor
+		var localDateISOString = localDate.toISOString().replace('Z', '').split('.')[0];
+		return localDateISOString;
 	},
 
 	render() {

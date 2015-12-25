@@ -11,7 +11,7 @@ var ShopForList = React.createClass({
   		}
 
       if(result.length === 0){
-        return 'Empty List';
+        return (<p>Empty List</p>);
       }
 
   		return result;

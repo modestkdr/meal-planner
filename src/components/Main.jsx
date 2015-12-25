@@ -260,7 +260,7 @@ var App = React.createClass({
 			        			listClassName="draggable-list" 
 			        			recipes={this.state.recipesList} />
 						</section>
-						<section className="col-md-6">
+						<section className="col-md-5">
 							{this.getCreateRecipeForm()}
 			        	</section>
 		        	</section>
