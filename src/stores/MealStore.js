@@ -8,21 +8,13 @@ var CHANGE_EVENT = 'change';
 
 var _mealCalendarItems = {};
 
-function scheduleMeal(text,mealType,plannedFor) {
-  var ref = new Firebase(ConfigConstants.Firebase_Root_Url + "mealcalendar");
-  ref.on("child_added", function(snapshot) {
-
-    if(! _mealCalendarItems[snapshot.key()]) {
-      _mealCalendarItems[snapshot.key()] = {
-        id: snapshot.key(),
-        planned_for:plannedFor,
-        mealType:"item",
-        text: text
-      };
-
-    }    
-  });
-  ref.off();
+function scheduleMeal(text,mealType,plannedFor,id) {
+  _mealCalendarItems[id] = {
+    id: id,
+    planned_for:plannedFor,
+    mealType:mealType,
+    text: text
+  };
 }
 
 var MealStore = assign({}, EventEmitter.prototype, {
@@ -31,7 +23,7 @@ var MealStore = assign({}, EventEmitter.prototype, {
     return _mealCalendarItems;
   },
 
-  setAllMealItems(mealCalendarItems) {
+  setAll(mealCalendarItems) {
     _mealCalendarItems = mealCalendarItems;
   },
 
@@ -54,7 +46,7 @@ AppDispatcher.register(function(action) {
   switch(action.actionType) {
 
     case AppConstants.SCHEDULE_MEAL:
-      scheduleMeal(action.itemText,action.mealType,action.planned_for);
+      scheduleMeal(action.itemText,action.mealType,action.planned_for,action.id);
       MealStore.emitChange();
       break;
       

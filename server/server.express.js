@@ -1,6 +1,6 @@
 import Express from "express";
 import {
-  GroceryAdd,GroceryUpdate,GroceryRemove,GroceriesFind,RecipesFind,Recipe,RecipeAdd
+  GroceryAdd,GroceryUpdate,GroceryRemove,GroceriesFind,RecipesFind,Recipe,RecipeAdd,MealAdd,MealsFind
 } from './routes';
 
 export default function (port, isProduction) {
@@ -34,6 +34,8 @@ export default function (port, isProduction) {
   server.use('/recipe/add', RecipeAdd);
   server.use('/recipe/find', RecipesFind);
   server.use('/recipe/id', Recipe);
+  server.use('/meal/add', MealAdd);
+  server.use('/meal/find',MealsFind);
 
   server.listen (port, () => {
     console.log ('Express is listening on port ' + port);

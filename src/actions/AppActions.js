@@ -116,36 +116,59 @@ var AppActions = {
 
   scheduleMeal(mealType,entity,timestamp){
     
-    var firebaseRef = new Firebase(ConfigConstants.Firebase_Root_Url + 'mealcalendar');
-
     if(mealType === "recipe")
     {
-      firebaseRef.push({
-        text: entity.recipeName,
-        planned_for:timestamp,
-        mealType:"recipe"
-      });
+      Superagent
+       .post('/meal/add')
+       .send({
+           text: entity.recipeName,
+           planned_for:timestamp,
+           mealType:"recipe"
+        })
+       .set('Accept', 'application/json')
+       .end(function(err, res){
+         if (err || !res.ok) {
+           console.log('Meal add: error');
+         } else {
+          //console.log('Meal add - recipe : xhr success');
+          //console.log(res.body.mealId);
 
-      AppDispatcher.dispatch({
-        actionType: AppConstants.SCHEDULE_MEAL,
-        itemText:entity.recipeName,
-        mealType:"recipe",
-        planned_for:timestamp
-      });
+            AppDispatcher.dispatch({
+              actionType: AppConstants.SCHEDULE_MEAL,
+              itemText:entity.recipeName,
+              mealType:"recipe",
+              planned_for:timestamp,
+              id:res.body.mealId
+            });
 
+         }
+       });
     } else {
-        firebaseRef.push({
+      Superagent
+       .post('/meal/add')
+       .send({
           text: entity.text,
           planned_for:timestamp,
           mealType:"item"
-        });
+        })
+       .set('Accept', 'application/json')
+       .end(function(err, res){
+         if (err || !res.ok) {
+           console.log('Meal add: error');
+         } else {
+          //console.log('Meal add - item : xhr success');
+          //console.log(res.body.mealId);
+          
+            AppDispatcher.dispatch({
+              actionType: AppConstants.SCHEDULE_MEAL,
+              itemText: entity.text,
+              planned_for:timestamp,
+              mealType:"item",
+              id:res.body.mealId
+            });
 
-        AppDispatcher.dispatch({
-          actionType: AppConstants.SCHEDULE_MEAL,
-          itemText:entity.text,
-          mealType:"item",
-          planned_for:timestamp
-        });
+         }
+       });
     }
   },
 

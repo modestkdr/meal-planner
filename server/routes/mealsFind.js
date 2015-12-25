@@ -5,17 +5,16 @@ var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/mealplanner';
 
-var findGroceries = function(db, callback) {
+var findMeals = function(db, callback) {
 
-    db.collection('groceries').find().sort( { _id: -1 } ).toArray(
+    db.collection('meals').find().sort( { planned_for: 1 } ).toArray(
     	function (err, result) {
 	      if (err) {
 	        console.log(err);
 	      } else if (result.length) {
-			//console.log('Docs found');
-			//console.log(result);
+			//console.log('Meal Docs found');
 	      } else {
-	        console.log('No groceries found');
+	        console.log('No meal docs found');
 	      }
 	      callback(result);
 	      db.close();
@@ -28,23 +27,23 @@ router.get ('/', (request, response) => {
   
   MongoClient.connect(url, function(err, db) {
 
-	assert.equal(null, err);
+	  assert.equal(null, err);
 	  
-	findGroceries(db, function(groceriesFound) {
-	  	if(groceriesFound.length) {
+	  findMeals(db, function(mealsFound) {
+	  	if(mealsFound.length) {
 
 	  		// Array to Object
-	  		var groceriesFoundObj = {};
-	  		for(var index in groceriesFound){
-				groceriesFoundObj[groceriesFound[index]["_id"]] = groceriesFound[index];
+	  		var mealsFoundObj = {};
+	  		for(var index in mealsFound){
+				mealsFoundObj[mealsFound[index]["_id"]] = mealsFound[index];
 			}
 
 			response.send({
-				"groceries":groceriesFoundObj
+				"meals":mealsFoundObj
 			});
 	  	} else {
 	  		response.send({
-				"groceries":{}
+				"meals":{}
 			});
 	  	}  
 	  });

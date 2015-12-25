@@ -71,20 +71,12 @@ var MealPlan = React.createClass({
 	},
 
 	getFormBtn() {
-		if(typeof this.props.droppedEntity !== 'undefined'){
-			return (<button onClick={this._onFormSubmit} type="submit" className="btn btn-default">Submit</button>);
-		} else {
-			return '';
-		}
+			return (<button onClick={this._onFormSubmit} type="submit" className="btn btn-default">Submit</button>);		
 	},
 
 	getInputTimestampField() {
-		if(typeof this.props.droppedEntity !== 'undefined'){
 			return (<input onChange={this._onChange} id="newMealTimestamp" type="datetime-local" 
 				    	className="form-control" />);
-		} else {
-			return '';
-		}
 	},
 
 	render() {

@@ -60,30 +60,31 @@ var App = React.createClass({
 		  }.bind(this));
 
 	  /* Get meal data from remote DB */
-	  var mealItems = [];
-	  var mealResult = {};
-	  var firebaseRef = new Firebase(ConfigConstants.Firebase_Root_Url + 'mealcalendar');
-	  firebaseRef.limitToLast(25).on('value', function(dataSnapshot) {
-	    dataSnapshot.forEach(function(childSnapshot) {
-	      var item = childSnapshot.val();
-	      item['.key'] = childSnapshot.key();
-	      mealItems.push(item);
-	    });
+	  Superagent
+		  .get('/meal/find')
+		  .set('Accept', 'application/json')
+		  .end(function(err, res){
 
-	    for(var index in mealItems){
-	      mealResult[mealItems[index][".key"]] = mealItems[index];
-	      mealResult[mealItems[index][".key"]].id = mealItems[index][".key"];
-	    }
-	    /* Initally: Sync local store with remote DB */
-	    MealStore.setAllMealItems(mealResult);
-	    this.setState({
-	    	mealCalendarItems: mealResult
-	    });
-	  }.bind(this));
+		  	var data = JSON.parse(res.text);
+		  	var meals = data.meals;
+		  	var result = {};
+		  	
+		  	for(var index in meals){
+		  		result[meals[index]["_id"]] = meals[index];
+		    	result[meals[index]["_id"]].id = meals[index]["_id"];
+		    }
+		  	
+		  	MealStore.setAll(result);
+		  	this.setState(getState());
+
+		  }.bind(this));
 
 	  GroceryStore.addChangeListener(this._onChange);
 	  RecipeStore.addChangeListener(this._onChange);
 	  MealStore.addChangeListener(this._onChange);
+
+	  // @todo refactor
+	  document.getElementById("shopping-list-container").style.display = 'none';
 	},
 
 	componentWillUnmount() {		
@@ -221,14 +222,13 @@ var App = React.createClass({
 			<section>
 				<section className="container-fluid">
 					<section className="col-md-3">
-						<div className="row">
-							<button className="text-center btn btn-primary btn-xs"
+
+						<div className="col-md-8">
+						<button className="text-center btn btn-primary btn-xs"
 							      			onClick={this._onToggleListBtnClick} 
 							      			id="toggle-list-btn">
 							      			Toggle 
 							</button>
-						</div>
-						<div className="col-md-8">
 							<section id="shopping-list-container">
 								<h3>Shopping List</h3>								
 						      	<ShopForInput 

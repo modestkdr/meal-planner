@@ -6,8 +6,8 @@ var Bin = React.createClass({
     getItems(){
       var renderItems = [];
       var items = this.props.items;
-      for(var item in items) {
-        renderItems.push(<li className="list-group-item" key={items[item].id}>{items[item].text}</li>);
+      for(var index in items) {
+        renderItems.push(<li className="list-group-item" key={index}>{items[index].text}</li>);
       }
       
       return renderItems;
