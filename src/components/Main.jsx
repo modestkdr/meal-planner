@@ -220,10 +220,9 @@ var App = React.createClass({
 	render() {
 		return (
 			<section>
-				<section className="container-fluid">
-					<section className="col-md-3">
-
-						<div className="col-md-8">
+				<section style={{'background':'rgba(55, 58, 59, 0.49)'}} className="container-fluid">
+					<section style={{"marginLeft":"1rem"}} className="col-md-2">
+						<div className="row">
 						<button className="text-center btn btn-primary btn-xs"
 							      			onClick={this._onToggleListBtnClick} 
 							      			id="toggle-list-btn">
@@ -248,8 +247,8 @@ var App = React.createClass({
 					        </section>
 					    </div>
 					</section>
-		        	<section className="col-md-8">
-						<section className="col-md-5">
+		        	<section className="col-md-9">
+						<section id="recipe-finder-container" className="col-md-6">
 							<RecipeFinder
 								btnText="Find Recipes" 
 					        	onRecipeFinderSubmit={this._onRecipeFinderSubmit} 
@@ -261,18 +260,17 @@ var App = React.createClass({
 			        			listClassName="draggable-list" 
 			        			recipes={this.state.recipesList} />
 						</section>
-						<div className="col-md-1"></div>
 						<section className="col-md-6">
 							{this.getCreateRecipeForm()}
 			        	</section>
-			        	<section className="row col-md-6">
-							<MealPlan 
-								mealPlanOnEntityDrop={this._mealPlanOnEntityDrop}
-								droppedEntity={this.state.entityInMealPlanner}
-								mealPlannerFormSubmit={this._mealPlannerFormSubmit} 
-								headingText="Plan a Meal" />
-						</section>
-		        	</section>		        	
+		        	</section>
+		        	<section className="clearfix col-md-4">
+		        		<MealPlan 
+							mealPlanOnEntityDrop={this._mealPlanOnEntityDrop}
+							droppedEntity={this.state.entityInMealPlanner}
+							mealPlannerFormSubmit={this._mealPlannerFormSubmit} 
+							headingText="Plan a Meal" />
+			        </section>
 				</section>
 				<section className="container-fluid">
 					<section className="">

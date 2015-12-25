@@ -10,6 +10,10 @@ var ShopForList = React.createClass({
   			result.push(<ShopForItem draggable={this.props.draggable} key={index} item={items[index]} />);
   		}
 
+      if(result.length === 0){
+        return 'Empty List';
+      }
+
   		return result;
   },
 
