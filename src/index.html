@@ -3,7 +3,9 @@
     <title>Meal Planner</title>
     <link rel="stylesheet" media="screen" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
     <style type="text/css">
-    #newGroceryInput{color:#666;}
+    #toggle-list {padding: 0.4rem 0;background: #1F1F1F;}
+    #toggle-list:hover {cursor: pointer;}
+    #newGroceryInput{color:#666;width: 90%;}
     .fixed-height::-webkit-scrollbar {width: .6em;}
     .fixed-height::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -14,7 +16,7 @@
     }
     body,#app {background: rgba(18, 19, 20, 0.86);}
     span,div {color:#dfe0e6;}
-    h2,h3,h4{color:#858589;font-size: 1.65rem;text-transform: uppercase;}
+    h2,h3,h4,.calendar-day h4 span{color:#858589;font-size: 1.65rem;text-transform: uppercase;}
     .well{color:#777;}
     .list-group-item{background:transparent;color:#fcfcfc;border:1px solid transparent;}
     .fixed-height{min-height:10rem;max-height:80rem;overflow-y:scroll;}
@@ -29,6 +31,9 @@
     #app li button:hover {border: 0;background: none;}
     .calendar-day {min-height: 10rem;}
     .calendar-day ul{margin-top: 3rem;}
+    .calendar-day .list-group-item {border-bottom: 1px solid #2F2D2D;}
+    .calendar-day .list-group-item span {color:#C3C3D2;}
+    .calendar-day hr {border-top: 1px solid #545151;}
     </style>
     <link rel="stylesheet" type="text/css" href="src/App.css">
   </head>

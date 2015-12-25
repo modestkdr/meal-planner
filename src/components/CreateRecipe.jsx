@@ -5,10 +5,10 @@ var CreateRecipe = React.createClass({
 	getInitialState() {
 	    return {
 	      'newRecipeName': '',
-	      'newRecipeIngredients':'',
+	      'newRecipeIngredients':this.getIngredients(),
 	      'newRecipeInstructions':'',
-	      'newRecipeCookingTime':'',
-	      'newRecipeYield':''
+	      'newRecipeCookingTime':'15',
+	      'newRecipeYield':'1'
 	    };
   	},
 
@@ -76,7 +76,7 @@ var CreateRecipe = React.createClass({
 				  <div className="form-group">
 				    <textarea placeholder="Ingredients - one per line" onChange={this._onChange} 
 				    	id="newRecipeIngredients" 
-				    	type="textarea" value={this.getIngredients()}
+				    	type="textarea" defaultValue={this.getIngredients()}
 				    	className="form-control" />
 				  </div>
 				  <div className="form-group">
@@ -86,12 +86,14 @@ var CreateRecipe = React.createClass({
 				    	className="form-control" />
 				  </div>
 				  <div className="form-group">
-				    <input onChange={this._onChange} min="1" value="15" type="number" className="form-control" 
+				    <input onChange={this._onChange} min="1" defaultValue={this.state.newRecipeCookingTime} 
+				    	type="number" className="form-control" 
 				    	id="newRecipeCookingTime"
 				    	placeholder="Cooking time in minutes"/>
 				  </div>
 				  <div className="form-group">
-				    <input onChange={this._onChange} min="1" value="1" type="number" className="form-control" 
+				    <input onChange={this._onChange} min="1" type="number" className="form-control" 
+					    defaultValue={this.state.newRecipeYield}
 				    	id="newRecipeYield"
 				    	placeholder="Recipe yield" />
 				  </div>

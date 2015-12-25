@@ -23,7 +23,8 @@ function getState(){
       shoppingList: GroceryStore.getShoppingList(),
       itemsInRecipeFinder: GroceryStore.getItemsInRecipeFinder(),
       recipesList:{},
-      mealCalendarItems:MealStore.getAllMealItems()
+      mealCalendarItems:MealStore.getAllMealItems(),
+      isShowShoppingListContainer:false
     };
 }
 
@@ -57,6 +58,9 @@ var App = React.createClass({
 		  	GroceryStore.setAll(result);
 		  	this.setState(getState());
 
+		  	// @todo refactor & persist in state
+			document.getElementById("shopping-list-container").style.display = 'none';
+
 		  }.bind(this));
 
 	  /* Get meal data from remote DB */
@@ -82,9 +86,6 @@ var App = React.createClass({
 	  GroceryStore.addChangeListener(this._onChange);
 	  RecipeStore.addChangeListener(this._onChange);
 	  MealStore.addChangeListener(this._onChange);
-
-	  // @todo refactor
-	  document.getElementById("shopping-list-container").style.display = 'none';
 	},
 
 	componentWillUnmount() {		
@@ -192,8 +193,9 @@ var App = React.createClass({
 
 		this.setState({
 			entityInMealPlanner:{}
+		}, function(){
+
 		});
-		document.getElementById('newMealTimestamp').value = '';
 	},
 
 	doesRecipeFinderHaveItems(){
@@ -206,15 +208,36 @@ var App = React.createClass({
 		}
 	},
 
-	_onToggleListBtnClick(){
-		if(document.getElementById("shopping-list-container").offsetHeight === 0){
-			document.getElementById("shopping-list-container").style.display = '';
-			document.getElementById("pantry-list-container").style.display = 'none';
-		} else {
-			document.getElementById("pantry-list-container").style.display = '';
-			document.getElementById("shopping-list-container").style.display = 'none';
-		}
+	_onToggleListEleClick(e){
+		e.preventDefault();
+		
+		this.setState({
+			isShowShoppingListContainer: ! this.state.isShowShoppingListContainer
+		}, function(){
+			if(this.state.isShowShoppingListContainer){
+				document.getElementById("toggle-list").innerHTML = 'Shopping List';
+				document.getElementById("pantry-list-container").style.display = 'none';
+				document.getElementById("shopping-list-container").style.display = '';
+				document.getElementById("newGroceryInput").focus();
+			} else {
+				document.getElementById("toggle-list").innerHTML = 'Pantry';
+				document.getElementById("shopping-list-container").style.display = 'none';
+				document.getElementById("pantry-list-container").style.display = '';
+			}
+		});
 
+	},
+
+	getToggleListEle(){
+		var text = this.state.isShowShoppingListContainer ? 'Shopping List' : 'Pantry';
+
+		return (
+			<h3 className="text-center" 
+				onClick={this._onToggleListEleClick} 
+				id="toggle-list">
+				{text}
+			</h3>
+		);
 	},
 
 	render() {
@@ -223,13 +246,8 @@ var App = React.createClass({
 				<section style={{'background':'rgba(55, 58, 59, 0.49)'}} className="container-fluid">
 					<section style={{"marginLeft":"1rem"}} className="col-md-2">
 						<div className="row">
-						<button className="text-center btn btn-primary btn-xs"
-							      			onClick={this._onToggleListBtnClick} 
-							      			id="toggle-list-btn">
-							      			Toggle 
-							</button>
+							{this.getToggleListEle()}
 							<section id="shopping-list-container">
-								<h3>Shopping List</h3>								
 						      	<ShopForInput 
 						      		onSave={this._onSave} 
 						      		placeholder="Add a new item here.." />
@@ -239,7 +257,6 @@ var App = React.createClass({
 						      		items={this.state.shoppingList} />
 						    </section>
 							<section id="pantry-list-container">
-								<h3>Pantry</h3>
 						        <PantryList 
 						        	listClassName="fixed-height draggable-list" 
 						        	draggable="true" 
@@ -264,7 +281,7 @@ var App = React.createClass({
 							{this.getCreateRecipeForm()}
 			        	</section>
 		        	</section>
-		        	<section className="clearfix col-md-4">
+		        	<section style={{'marginLeft':'1.2rem'}} className="clearfix col-md-4">
 		        		<MealPlan 
 							mealPlanOnEntityDrop={this._mealPlanOnEntityDrop}
 							droppedEntity={this.state.entityInMealPlanner}
@@ -272,8 +289,8 @@ var App = React.createClass({
 							headingText="Plan a Meal" />
 			        </section>
 				</section>
-				<section className="container-fluid">
-					<section className="">
+				<section style={{'background':'rgba(75, 75, 75, 0.61)'}} className="container-fluid">
+					<section>
 						<Calendar 
 							headingText="Meal Calendar" 
 							mealCalendarItems={this.state.mealCalendarItems} />
