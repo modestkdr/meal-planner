@@ -199,6 +199,29 @@ var AppActions = {
     })
   },
 
+  removeItemFromRecipeFinder(item) {
+
+    Superagent
+       .post('/grocery/update')
+       .send({
+          id: item.id,
+          isInRecipeFinder: false
+        })
+       .set('Accept', 'application/json')
+       .end(function(err, res){
+         if (err || !res.ok) {
+           console.log('grocery update: error');
+         } else {
+          //console.log('grocery update: xhr success');
+          //console.log(JSON.stringify(res.body));
+          AppDispatcher.dispatch({
+            actionType: AppConstants.REMOVE_ITEM_FROM_RECIPE_FINDER,
+            id: item.id
+          });
+         }
+       });
+  },
+
 };
 
 module.exports = AppActions;

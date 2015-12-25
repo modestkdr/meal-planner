@@ -1,5 +1,6 @@
 import React from 'react';
 var GroceryStore = require('../stores/GroceryStore');
+var RecipeFinderItem = require('./RecipeFinderItem');
 
 var Bin = React.createClass({
   
@@ -7,7 +8,9 @@ var Bin = React.createClass({
       var renderItems = [];
       var items = this.props.items;
       for(var index in items) {
-        renderItems.push(<li className="list-group-item" key={index}>{items[index].text}</li>);
+        renderItems.push(
+          <RecipeFinderItem key={index} item={items[index]} />
+        );
       }
       
       return renderItems;

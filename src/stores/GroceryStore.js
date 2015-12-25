@@ -176,6 +176,11 @@ AppDispatcher.register(function(action) {
       updateAll({isInRecipeFinder:false});
       GroceryStore.emitChange();
       break;
+
+    case AppConstants.REMOVE_ITEM_FROM_RECIPE_FINDER:
+      update(action.id, {isInRecipeFinder:false});
+      GroceryStore.emitChange();
+      break;
       
     default:    
   }
