@@ -23,7 +23,7 @@ var Calendar = React.createClass({
 	render() {
 		return (
 			<section className="col-md-12">
-				<h3 className='text-center'>{this.props.headingText}</h3>				
+				<h2 className='text-center'>{this.props.headingText}</h2>
 				<section className="col-md-3 calendar-day">
 					<h4>{moment().add(0, 'days').format('dddd')}, {moment().add(0, 'days').format('MMM Do')}</h4>
 					<hr/>

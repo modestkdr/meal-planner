@@ -18,7 +18,7 @@ var findRecipes = function(db,reqIngredients, callback) {
 
 	}
 
-    db.collection('recipes').find({ recipeIngredients: { $all: reqIngredients }}).toArray(
+    db.collection('recipes').find({ recipeIngredients: { $all: reqIngredients }},{limit:4}).toArray(
     	function (err, result) {
 	      if (err) {
 	        console.log(err);

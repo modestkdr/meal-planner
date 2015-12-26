@@ -7,12 +7,13 @@ var CHANGE_EVENT = 'change';
 
 var _groceriesList = {};
 
-function create(text,id) {
+function create(text,id,imgPath) {
   _groceriesList[id] = {
     id: id,
     isInPantry: false,
     isInRecipeFinder:false,
-    text: text
+    text: text,
+    imgPath:imgPath
   }; 
 }
 
@@ -137,7 +138,7 @@ AppDispatcher.register(function(action) {
     case AppConstants.SHOP_FOR_CREATE:
       text = action.text.trim();
       if (text !== '') {
-        create(text,action.id);
+        create(text,action.id,action.imgPath);
         GroceryStore.emitChange();
       }
       break;

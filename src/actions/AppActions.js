@@ -25,7 +25,8 @@ var AppActions = {
           AppDispatcher.dispatch({
             actionType: AppConstants.SHOP_FOR_CREATE,
             text: text,
-            id: res.body.groceryId
+            id: res.body.groceryId,
+            imgPath: res.body.imgPath
           });
 
          }

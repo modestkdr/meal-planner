@@ -22,11 +22,8 @@ var ShopForItem = React.createClass({
   },
 
   getItemImg(){
-    var itemName = this.props.item.text.toLowerCase();
-    itemName = itemName.replace(" ","-");
-
-    //console.log(itemName);
-    var itemImgSrc = "/images/groceries/" + itemName + ".jpg";
+    //console.log(this.props.item);
+    var itemImgSrc = "/images" + this.props.item.imgPath;
 
     return (
       <img className="img-responsive" src={itemImgSrc} />
