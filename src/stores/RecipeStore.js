@@ -3,7 +3,6 @@ var EventEmitter = require('events').EventEmitter;
 var AppConstants = require('../constants/AppConstants');
 var ConfigConstants = require('../constants/ConfigConstants');
 var assign = require('object-assign');
-var Firebase = require('firebase');
 var CHANGE_EVENT = 'change';
 
 var _recipeList = {};

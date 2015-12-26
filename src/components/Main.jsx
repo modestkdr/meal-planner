@@ -1,7 +1,6 @@
 import React from 'react';
 var ReactDOM = require('react-dom');
 import {  Router, Route, IndexRoute, Link } from 'react-router';
-var Firebase = require('firebase');
 var Superagent = require('superagent');
 var ConfigConstants = require('../constants/ConfigConstants');
 var AppActions = require('../actions/AppActions');
@@ -215,12 +214,10 @@ var App = React.createClass({
 			isShowShoppingListContainer: ! this.state.isShowShoppingListContainer
 		}, function(){
 			if(this.state.isShowShoppingListContainer){
-				document.getElementById("toggle-list").innerHTML = 'Shopping List';
 				document.getElementById("pantry-list-container").style.display = 'none';
 				document.getElementById("shopping-list-container").style.display = '';
 				document.getElementById("newGroceryInput").focus();
 			} else {
-				document.getElementById("toggle-list").innerHTML = 'Pantry';
 				document.getElementById("shopping-list-container").style.display = 'none';
 				document.getElementById("pantry-list-container").style.display = '';
 			}

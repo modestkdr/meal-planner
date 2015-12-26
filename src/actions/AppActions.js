@@ -1,7 +1,6 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var ConfigConstants = require('../constants/ConfigConstants');
-var Firebase = require('firebase');
 var Superagent = require('superagent');
 
 var AppActions = {

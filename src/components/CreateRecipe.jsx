@@ -56,6 +56,7 @@ var CreateRecipe = React.createClass({
 	// Get ingredients - already available in the recipe finder
 	getIngredients(){
 		var ingredients = this.props.ingredients;
+		//console.log(ingredients);
 		var result = '';
 
 		for(var index in ingredients){
