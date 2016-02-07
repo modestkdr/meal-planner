@@ -27,12 +27,14 @@ router.post('/', (request, response) => {
 	  assert.equal(null, err);
 	  
 	  insertDocument(db, reqData, function(result) {
-
+	  	//console.log(result);
 	    db.close();
     	
     	response.setHeader('Content-Type', 'application/json');
 	  	response.send ({
-			"mealId": result.insertedId
+			"mealId": result.insertedId,
+			"mealTimestamp":result.ops[0].planned_for,
+			"recipeId":result.ops[0].recipeId
 		});
 
 	  });

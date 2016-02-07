@@ -9,9 +9,11 @@ var RecipesList = React.createClass({
   	var result = [];
 
   	for(var index in recipes) {
-  		result.push(
-        <RecipeCard key={index} recipe={recipes[index]} />
-  		);
+      if(index) {
+        result.push(
+          <RecipeCard key={index} recipe={recipes[index]} />
+        );
+      }
   	}
 
   	return result;

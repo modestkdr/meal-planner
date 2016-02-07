@@ -35,7 +35,7 @@ var ShopForItem = React.createClass({
 
     return (
 
-      <li className="list-group-item" 
+      <li className="col-md-2" 
           onDragStart={this._onDragStart} draggable={this.props.draggable} key={this.props.key}>
           <div className="row">
               {this.getItemImg()}

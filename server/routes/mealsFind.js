@@ -7,7 +7,7 @@ var url = 'mongodb://localhost:27017/mealplanner';
 
 var findMeals = function(db, callback) {
 
-    db.collection('meals').find().sort( { planned_for: 1 } ).toArray(
+    db.collection('meals').find().sort( { planned_for: 1 }).toArray(
     	function (err, result) {
 	      if (err) {
 	        console.log(err);
@@ -30,7 +30,7 @@ router.get ('/', (request, response) => {
 	  assert.equal(null, err);
 	  
 	  findMeals(db, function(mealsFound) {
-	  	if(mealsFound.length) {
+	  	if(typeof mealsFound !== 'undefined' && mealsFound.length) {
 
 	  		// Array to Object
 	  		var mealsFoundObj = {};

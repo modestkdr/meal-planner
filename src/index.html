@@ -3,14 +3,22 @@
     <title>Meal Planner</title>
     <link rel="stylesheet" media="screen" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
     <style type="text/css">
+    .wrapper {
+      white-space: nowrap;
+      overflow-y: hidden;
+      overflow-x: scroll;
+      -webkit-overflow-scrolling: touch;
+      padding-left: 0;
+    }
+ 
     #toggle-list {padding: 0.4rem 0;background: #1F1F1F;}
     #toggle-list:hover {cursor: pointer;}
     #newGroceryInput{color:#666;width: 90%;}
-    .fixed-height::-webkit-scrollbar {width: .6em;}
-    .fixed-height::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    .wrapper::-webkit-scrollbar {width: .6rem;}
+    .wrapper::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
     }
-    .fixed-height::-webkit-scrollbar-thumb {
+    .wrapper::-webkit-scrollbar-thumb {
       background-color: #323438;
       outline: 1px solid #e9e9e9;
     }
@@ -23,7 +31,9 @@
     .well{color:#777;}
     .list-group-item{background:transparent;color:#fcfcfc;border:1px solid transparent;}
     .fixed-height{min-height:10rem;max-height:80rem;overflow-y:scroll;}
-    #shopping-list-container li,#pantry-list-container li {text-transform: capitalize;}
+    #shopping-list-container li,#pantry-list-container li {
+      display: inline-block;float: none;text-transform: capitalize;margin:0 .75rem;
+    }
     .show-inline {display: inline-block;}
     .draggable-list li:hover {cursor: pointer;}
     .list-group {min-height: 5rem;}

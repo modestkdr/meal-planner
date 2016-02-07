@@ -22,6 +22,8 @@ var CreateRecipe = React.createClass({
 			this.state.newRecipeCookingTime,
 			this.state.newRecipeYield
 		);
+
+		document.getElementById("newRecipeFormContainer").style.display = 'none';
 	},
 
 	_onChange(e) {
@@ -67,21 +69,21 @@ var CreateRecipe = React.createClass({
 
 	render() {
 		return (
-			<section>
+			<section id="newRecipeFormContainer">
 				<h3>{this.props.headingText}</h3>
 				<form>
 				  <div className="form-group">
-				    <input onChange={this._onChange} id="newRecipeName" type="text" 
+				    <input required="required" onChange={this._onChange} id="newRecipeName" type="text" 
 				    	className="form-control" placeholder="Recipe name" />
 				  </div>
 				  <div className="form-group">
-				    <textarea placeholder="Ingredients - one per line" onChange={this._onChange} 
+				    <textarea required="required" placeholder="Ingredients - one per line" onChange={this._onChange} 
 				    	id="newRecipeIngredients" 
 				    	type="textarea" defaultValue={this.getIngredients()}
 				    	className="form-control" />
 				  </div>
 				  <div className="form-group">
-				    <textarea placeholder="Instructions - one per line" onChange={this._onChange} 
+				    <textarea required="required" placeholder="Instructions - one per line" onChange={this._onChange} 
 				    	id="newRecipeInstructions" 
 				    	type="textarea" 
 				    	className="form-control" />

@@ -11,14 +11,14 @@ var ShopForList = React.createClass({
   		}
 
       if(result.length === 0){
-        return (<p>Empty List</p>);
+        return (<p>Empty list</p>);
       }
 
   		return result;
   },
 
   render() {
-    var listClassNames = "list-group " + this.props.listClassName;
+    var listClassNames = " wrapper";
     return (
       <ul className={listClassNames}>
       	{this.getItems()}

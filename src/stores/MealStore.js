@@ -7,13 +7,18 @@ var CHANGE_EVENT = 'change';
 
 var _mealCalendarItems = {};
 
-function scheduleMeal(text,mealType,plannedFor,id) {
+function scheduleMeal(text,mealType,plannedFor,id,recipeId) {
   _mealCalendarItems[id] = {
     id: id,
     planned_for:plannedFor,
     mealType:mealType,
-    text: text
+    text: text,
+    recipeId:recipeId
   };
+
+  // if(typeof recipeId !== 'undefined'){
+  //   _mealCalendarItems[id][recipeId] = recipeId;
+  // }
 }
 
 var MealStore = assign({}, EventEmitter.prototype, {
@@ -45,7 +50,7 @@ AppDispatcher.register(function(action) {
   switch(action.actionType) {
 
     case AppConstants.SCHEDULE_MEAL:
-      scheduleMeal(action.itemText,action.mealType,action.planned_for,action.id);
+      scheduleMeal(action.itemText,action.mealType,action.planned_for,action.id,action.recipeId);
       MealStore.emitChange();
       break;
       

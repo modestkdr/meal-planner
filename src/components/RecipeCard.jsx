@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 var RecipeCard = React.createClass({
 
@@ -17,8 +18,8 @@ var RecipeCard = React.createClass({
 		return (
 			<li onDragStart={this._onDragStart} draggable="true" className="col-md-3">
   				<img className="img-responsive" src="http://placehold.it/125x125" />
-  				<div>{this.props.recipe.recipeName}</div>
-  			</li>
+          <div><Link to={`/recipe/${this.props.recipe._id}`}>{this.props.recipe.recipeName}</Link></div>
+  		</li>
 		);
 	}
 });

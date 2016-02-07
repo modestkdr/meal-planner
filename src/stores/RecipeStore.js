@@ -11,10 +11,30 @@ function find(id){
   return _recipeList[id];
 }
 
+function create(recipe,id) {
+  _recipeList[id] = {
+    id:id,
+    _id:id,
+    recipeName: recipe.recipeName,
+    recipeIngredients: recipe.recipeIngredients,
+    recipeInstructions: recipe.recipeInstructions,
+    recipeCookingTime: recipe.recipeCookingTime,
+    recipeYield: recipe.recipeYield
+  }; 
+}
+
 var RecipeStore = assign({}, EventEmitter.prototype, {
 
   find(id) {
       return find(id);
+  },
+
+  create(recipe,id) {
+    return create(recipe, id);
+  },
+
+  getAll() {
+    return _recipeList;
   },
 
   setAll(recipeList) {
@@ -38,12 +58,20 @@ var RecipeStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(action) {
 
   switch(action.actionType) {
+    
+    case AppConstants.RECIPE_CREATE:
+      if(action.id.trim() !== '' && action.recipe.recipeName !== '') {
+        create(action.recipe,action.id);
+        RecipeStore.emitChange();
+      }
+    break;
+
     case AppConstants.FIND_RECIPE:
       if (action.id.trim() !== '') {
         find(action.id);
         RecipeStore.emitChange();
       }
-      break;
+    break;
       
     default:    
   }

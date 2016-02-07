@@ -12,7 +12,7 @@ var insertDocument = function(db, reqData, callback) {
 	var grocery = reqData;
 
 	// Check if corpora has this grocery, if so - use imgPath
-	db.collection('corpora').findOne({'type':'grocery',synonyms:grocery.text.toLowerCase()}, function(err, result){
+	db.collection('corpora').findOne(({$text:{$search:grocery.text, $caseSensitive:false}}), function(err, result){
 		assert.equal(err,null);
 		//console.log('corpora result');
 		//console.log(result);

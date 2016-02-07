@@ -7,16 +7,7 @@ var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/mealplanner';
 
 var insertDocument = function(db, reqData, callback) {
-	
-	//Convert ingredients from string (with newlines) to Array
-	reqData.recipeIngredients = reqData.recipeIngredients.split("\n");
 
-	var recipeIngredientsArr = [];
-	for(var index in reqData.recipeIngredients) {
-		recipeIngredientsArr.push(reqData.recipeIngredients[index].toLowerCase());
-	}
-	reqData.recipeIngredients = recipeIngredientsArr;
-	
 	db.collection('recipes').insertOne(reqData, function(err, result) {
     	assert.equal(err, null);
     	//console.log("Inserted a document into the recipes collection.");

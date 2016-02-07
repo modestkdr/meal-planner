@@ -6,19 +6,8 @@ var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/mealplanner';
 
 var findRecipes = function(db,reqIngredients, callback) {
-	reqIngredients = reqIngredients.split(",");
-	// convert each item in array to lower case
-	reqIngredients.forEach(
-		function(item, index) { 
-			reqIngredients[index] = reqIngredients[index].toLowerCase(); 
-		}
-	);
 
-	for(var item in reqIngredients){
-
-	}
-
-    db.collection('recipes').find({ recipeIngredients: { $all: reqIngredients }},{limit:4}).toArray(
+    db.collection('recipes').find({ $text: { $search: reqIngredients, $caseSensitive:false }},{limit:4}).toArray(
     	function (err, result) {
 	      if (err) {
 	        console.log(err);
@@ -37,6 +26,9 @@ router.get ('/', (request, response) => {
   response.setHeader('Content-Type', 'application/json');
   
   var reqIngredients = request.query.ingredients;
+  // convert reqIngredients to a string separated by spaces
+  reqIngredients = reqIngredients.split(",");
+  reqIngredients = reqIngredients.join(" ");
 
   MongoClient.connect(url, function(err, db) {
 

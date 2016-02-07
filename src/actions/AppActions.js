@@ -33,6 +33,27 @@ var AppActions = {
        });
   },
 
+  recipeCreate(newRecipe) {
+    
+    Superagent
+       .post('/recipe/add')
+       .send(newRecipe)
+       .set('Accept', 'application/json')
+       .end(function(err, res){
+         if (err || !res.ok) {
+           console.log('error');
+         } else {
+          //console.log('xhr success');
+          //console.log(JSON.stringify(res.body));
+          AppDispatcher.dispatch({
+            actionType: AppConstants.RECIPE_CREATE,
+            recipe: newRecipe,
+            id: res.body.recipeId
+          });
+         }
+       });
+  },
+
   updateText(id, text) {
     AppDispatcher.dispatch({
       actionType: AppConstants.SHOP_FOR_UPDATE_TEXT,
@@ -123,7 +144,8 @@ var AppActions = {
        .send({
            text: entity.recipeName,
            planned_for:timestamp,
-           mealType:"recipe"
+           mealType:"recipe",
+           recipeId:entity._id
         })
        .set('Accept', 'application/json')
        .end(function(err, res){
@@ -137,8 +159,9 @@ var AppActions = {
               actionType: AppConstants.SCHEDULE_MEAL,
               itemText:entity.recipeName,
               mealType:"recipe",
-              planned_for:timestamp,
-              id:res.body.mealId
+              planned_for:res.body.mealTimestamp,
+              id:res.body.mealId,
+              recipeId:res.body.recipeId
             });
 
          }
@@ -162,7 +185,7 @@ var AppActions = {
             AppDispatcher.dispatch({
               actionType: AppConstants.SCHEDULE_MEAL,
               itemText: entity.text,
-              planned_for:timestamp,
+              planned_for:res.body.mealTimestamp,
               mealType:"item",
               id:res.body.mealId
             });

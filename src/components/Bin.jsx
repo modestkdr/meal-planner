@@ -60,7 +60,7 @@ var Bin = React.createClass({
         <div className="well well-sm">Drag and drop items from pantry here</div>
         <div className="clearfix"></div> 
         {this.getListHeading()}    
-        <ul className="list-group">
+        <ul className="col-md-10 list-group">
           {this.getItems()}
         </ul>
         <div className="clearfix"></div>      

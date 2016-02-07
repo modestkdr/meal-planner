@@ -1,8 +1,8 @@
 import React from 'react';
 var ReactDOM = require('react-dom');
-import {  Router, Route, IndexRoute, Link } from 'react-router';
+import {  browserHistory, Router, Route, IndexRoute, Link } from 'react-router';
 var Superagent = require('superagent');
-var ConfigConstants = require('../constants/ConfigConstants');
+//var ConfigConstants = require('../constants/ConfigConstants');
 var AppActions = require('../actions/AppActions');
 import GroceryStore from '../stores/GroceryStore';
 import RecipeStore from '../stores/RecipeStore';
@@ -13,6 +13,7 @@ var ShopForList = require('../components/ShopForList');
 var RecipeFinder = require('../components/Bin');
 var CreateRecipe = require('../components/CreateRecipe');
 var RecipesList = require('../components/RecipesList');
+var RecipePage = require('../components/RecipePage');
 var MealPlan = require('../components/MealPlan');
 var Calendar = require('../components/Calendar');
 
@@ -21,9 +22,10 @@ function getState(){
       pantryList: GroceryStore.getPantryList(),
       shoppingList: GroceryStore.getShoppingList(),
       itemsInRecipeFinder: GroceryStore.getItemsInRecipeFinder(),
-      recipesList:{},
+      recipesList:RecipeStore.getAll(),
       mealCalendarItems:MealStore.getAllMealItems(),
-      isShowShoppingListContainer:false
+      isShowShoppingListContainer:false,
+      newRecipeSubmission:{}
     };
 }
 
@@ -49,9 +51,12 @@ var App = React.createClass({
 		  	//console.log('groceries');
 		  	//console.log(groceries);
 		  	
+		  	// @todo refactor
+		  	// _id is from MongoDB and id is used throughout this app
 		  	for(var index in groceries){
 		  		result[groceries[index]["_id"]] = groceries[index];
 		    	result[groceries[index]["_id"]].id = groceries[index]["_id"];
+		    	delete result[groceries[index]["_id"]]._id;
 		    }
 		  	
 		  	GroceryStore.setAll(result);
@@ -75,6 +80,7 @@ var App = React.createClass({
 		  	for(var index in meals){
 		  		result[meals[index]["_id"]] = meals[index];
 		    	result[meals[index]["_id"]].id = meals[index]["_id"];
+		    	delete result[meals[index]["_id"]]._id;
 		    }
 		  	
 		  	MealStore.setAll(result);
@@ -138,30 +144,20 @@ var App = React.createClass({
 		  }.bind(this));
 
 		  // For each item in recipe finder, set isInRecipeFinder to false 
-		  AppActions.unsetAllItemsInRecipeFinder(itemsInRecipeFinder);
+		  //AppActions.unsetAllItemsInRecipeFinder(itemsInRecipeFinder);
 	},
 
 	_onNewRecipeFormSubmit(recipeName,recipeIngredients,recipeInstructions,recipeCookingTime,recipeYield) {
-		//console.log('Add this new recipe to recipe store' + recipeName);
-		Superagent
-		   .post('/recipe/add')
-		   .send({
+
+		AppActions.recipeCreate({
 		   		recipeName: recipeName,
 		   		recipeIngredients: recipeIngredients,
 		   		recipeInstructions: recipeInstructions,
 		   		recipeCookingTime: recipeCookingTime,
 		   		recipeYield: recipeYield
-		   	})
-		   .set('Accept', 'application/json')
-		   .end(function(err, res){
-		     if (err || !res.ok) {
-		       console.log('error');
-		     } else {
-		     	//console.log('xhr success');
-		    	//console.log(JSON.stringify(res.body));
-		     }
-		   });
+		});
 
+		//AppActions.unsetAllItemsInRecipeFinder(this.state.itemsInRecipeFinder);
 	},
 
 	// Display form to add a new recipe only when there are item(s) in recipe finder
@@ -189,11 +185,11 @@ var App = React.createClass({
 		}
 		
 		AppActions.scheduleMeal(mealType,this.state.entityInMealPlanner,newMealTimestamp);
+		AppActions.unsetAllItemsInRecipeFinder(this.state.itemsInRecipeFinder);
 
 		this.setState({
-			entityInMealPlanner:{}
-		}, function(){
-
+			entityInMealPlanner:{},
+			recipesList:{}
 		});
 	},
 
@@ -209,24 +205,28 @@ var App = React.createClass({
 
 	_onToggleListEleClick(e){
 		e.preventDefault();
-		
-		this.setState({
-			isShowShoppingListContainer: ! this.state.isShowShoppingListContainer
-		}, function(){
-			if(this.state.isShowShoppingListContainer){
-				document.getElementById("pantry-list-container").style.display = 'none';
-				document.getElementById("shopping-list-container").style.display = '';
-				document.getElementById("newGroceryInput").focus();
-			} else {
+
+		if(document.getElementById("newGroceryInput") !== null) {
+			var isGroceryInputHidden = (document.getElementById("newGroceryInput").offsetParent === null);
+
+			if(! isGroceryInputHidden){
 				document.getElementById("shopping-list-container").style.display = 'none';
 				document.getElementById("pantry-list-container").style.display = '';
+				document.getElementById('toggle-list').innerHTML = "Pantry";
+
+			} else {
+				document.getElementById("pantry-list-container").style.display = 'none';
+				document.getElementById("shopping-list-container").style.display = '';
+				document.getElementById('toggle-list').innerHTML = "Shopping List";
+				document.getElementById("newGroceryInput").focus();
 			}
-		});
+		}	
 
 	},
 
 	getToggleListEle(){
-		var text = this.state.isShowShoppingListContainer ? 'Shopping List' : 'Pantry';
+
+		var text = 'Pantry';
 
 		return (
 			<h3 className="text-center" 
@@ -241,7 +241,7 @@ var App = React.createClass({
 		return (
 			<section>
 				<section style={{'background':'rgba(55, 58, 59, 0.49)'}} className="container-fluid">
-					<section style={{"marginLeft":"1rem"}} className="col-md-2">
+					<section style={{"marginLeft":"1rem"}} className="col-md-12">
 						<div className="row">
 							{this.getToggleListEle()}
 							<section id="shopping-list-container">
@@ -249,20 +249,20 @@ var App = React.createClass({
 						      		onSave={this._onSave} 
 						      		placeholder="Add a new item here.." />
 						      	<ShopForList 
-						      		listClassName="fixed-height" 
+						      		listClassName="" 
 						      		draggable="false" 
 						      		items={this.state.shoppingList} />
 						    </section>
 							<section id="pantry-list-container">
 						        <PantryList 
-						        	listClassName="fixed-height draggable-list" 
+						        	listClassName="draggable-list" 
 						        	draggable="true" 
 						        	items={this.state.pantryList} />
 					        </section>
 					    </div>
 					</section>
-		        	<section className="col-md-9">
-						<section id="recipe-finder-container" className="col-md-6">
+		        	<section className="col-md-12">
+						<section id="recipe-finder-container" className="col-md-5">
 							<RecipeFinder
 								btnText="Find Recipes" 
 					        	onRecipeFinderSubmit={this._onRecipeFinderSubmit} 
@@ -274,6 +274,7 @@ var App = React.createClass({
 			        			listClassName="draggable-list" 
 			        			recipes={this.state.recipesList} />
 						</section>
+						<section className="col-md-1"></section>
 						<section className="col-md-5">
 							{this.getCreateRecipeForm()}
 			        	</section>
@@ -293,12 +294,15 @@ var App = React.createClass({
 							mealCalendarItems={this.state.mealCalendarItems} />
 					</section>
 		        </section>
+		        <div></div>
 	        </section>
 		);
 	}
 });
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('app')
-);
+ReactDOM.render((
+  <Router history={browserHistory}>
+    <Route path="/" component={App} />
+    <Route path="/recipe/:id" component={RecipePage}/>
+  </Router>
+), document.getElementById('app'))
