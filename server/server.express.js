@@ -1,4 +1,5 @@
 import Express from "express";
+var router = Express.Router();
 import {
   GroceryAdd,GroceryUpdate,GroceryRemove,GroceriesFind,RecipesFind,Recipe,RecipeAdd,MealAdd,MealsFind
 } from './routes';
@@ -18,7 +19,7 @@ export default function (port, isProduction) {
   }
 
   server.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
     next();
@@ -36,7 +37,7 @@ export default function (port, isProduction) {
   server.use('/recipe/id', Recipe);
   server.use('/meal/add', MealAdd);
   server.use('/meal/find',MealsFind);
-
+  
   server.listen (port, () => {
     console.log ('Express is listening on port ' + port);
   });

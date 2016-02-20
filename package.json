@@ -34,6 +34,7 @@
     "nodemon": "^1.8.1",
     "react": "^0.14.3",
     "react-hot-loader": "~1.2.9",
+    "react-router":"~2.0.0",
     "sass-loader": "^2.0.1",
     "style-loader": "^0.12.3",
     "webpack": "~1.12.0",

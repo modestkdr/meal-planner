@@ -1,4 +1,4 @@
-import Express from 'express';
+var Express = require('express');
 let router = Express.Router ();
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
