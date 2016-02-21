@@ -35,7 +35,7 @@ var ShopForItem = React.createClass({
 
     return (
 
-      <li className="col-md-2" 
+      <li className="col-md-12" 
           onDragStart={this._onDragStart} draggable={this.props.draggable} key={this.props.key}>
           <div className="row">
               {this.getItemImg()}
@@ -45,7 +45,7 @@ var ShopForItem = React.createClass({
                   'height':45,
                   'width':"100%",
                   'maxHeight':60,
-                  'bottom':10,
+                  'bottom':0,
                   'color':'white',
                   'background':'rgba(0, 0, 0, 0.61)'
                 }} 
@@ -58,8 +58,9 @@ var ShopForItem = React.createClass({
                     onChange={this._onToggleComplete}
                     />
                     {item.text}
-                    <button  onClick={this._remove}  className="pull-right" 
-                      type="button" aria-label="Remove">x</button>
+                    <button  onClick={this._remove}  className="pull-right" type="button" aria-label="Remove">
+                    x
+                    </button>
                   </div>
               </div>
           </div>          

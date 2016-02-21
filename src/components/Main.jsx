@@ -2,7 +2,6 @@ import React from 'react';
 var ReactDOM = require('react-dom');
 import {  browserHistory, Router, Route, IndexRoute, Link } from 'react-router';
 var Superagent = require('superagent');
-//var ConfigConstants = require('../constants/ConfigConstants');
 var AppActions = require('../actions/AppActions');
 import GroceryStore from '../stores/GroceryStore';
 import RecipeStore from '../stores/RecipeStore';
@@ -241,7 +240,7 @@ var App = React.createClass({
 		return (
 			<section>
 				<section style={{'background':'rgba(55, 58, 59, 0.49)'}} className="container-fluid">
-					<section style={{"marginLeft":"1rem"}} className="col-md-12">
+					<section style={{"marginLeft":"1rem"}} className="col-md-1">
 						<div className="row">
 							{this.getToggleListEle()}
 							<section id="shopping-list-container">
@@ -261,7 +260,7 @@ var App = React.createClass({
 					        </section>
 					    </div>
 					</section>
-		        	<section className="col-md-12">
+		        	<section className="col-md-10">
 						<section id="recipe-finder-container" className="col-md-5">
 							<RecipeFinder
 								btnText="Find Recipes" 
