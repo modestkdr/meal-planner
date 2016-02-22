@@ -34,6 +34,16 @@
     .well{color:#777;}
     .list-group-item{background:transparent;color:#fcfcfc;border:1px solid transparent;}
     .fixed-height{min-height:10rem;max-height:80rem;overflow-y:scroll;}
+        .fixed-height::-webkit-scrollbar {
+        width: .5em;
+    }
+    .fixed-height::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }
+    .fixed-height::-webkit-scrollbar-thumb {
+      background-color: darkgrey;
+      outline: 1px solid slategrey;
+    }
     #shopping-list-container li,#pantry-list-container li {
       float: none;text-transform: capitalize;margin:0.1rem;
     }

@@ -240,10 +240,10 @@ var App = React.createClass({
 		return (
 			<section>
 				<section style={{'background':'rgba(55, 58, 59, 0.49)'}} className="container-fluid">
-					<section style={{"marginLeft":"1rem"}} className="col-md-1">
+					<section style={{"marginLeft":"1rem"}} className="col-md-2">
 						<div className="row">
 							{this.getToggleListEle()}
-							<section id="shopping-list-container">
+							<section className="fixed-height" id="shopping-list-container">
 						      	<ShopForInput 
 						      		onSave={this._onSave} 
 						      		placeholder="Add a new item here.." />
@@ -252,7 +252,7 @@ var App = React.createClass({
 						      		draggable="false" 
 						      		items={this.state.shoppingList} />
 						    </section>
-							<section id="pantry-list-container">
+							<section className="fixed-height" id="pantry-list-container">
 						        <PantryList 
 						        	listClassName="draggable-list" 
 						        	draggable="true" 
@@ -260,7 +260,7 @@ var App = React.createClass({
 					        </section>
 					    </div>
 					</section>
-		        	<section className="col-md-10">
+		        	<section className="col-md-9">
 						<section id="recipe-finder-container" className="col-md-5">
 							<RecipeFinder
 								btnText="Find Recipes" 
