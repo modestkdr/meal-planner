@@ -2,13 +2,16 @@
 {"type":"grocery","keywords":"almond silk milk","imgPath":"/groceries/almond-milk.jpg"}
 {"type":"grocery","keywords":"apples","imgPath":"/groceries/apples.jpg"}
 {"type":"grocery","keywords":"bagels","imgPath":"/groceries/bagels.jpg"}
+{"type":"grocery","keywords":"baked beans","imgPath":"/groceries/baked-beans.jpg"}
 {"type":"grocery","keywords":"bananas","imgPath":"/groceries/bananas.jpg"}
 {"type":"grocery","keywords":"beets red","imgPath":"/groceries/beets.jpg"}
 {"type":"grocery","keywords":"bell peppers","imgPath":"/groceries/bell-peppers.jpg"}
 {"type":"grocery","keywords":"bread","imgPath":"/groceries/bread.jpg"}
 {"type":"grocery","keywords":"broccoli","imgPath":"/groceries/broccoli.jpg"}
 {"type":"grocery","keywords":"butter","imgPath":"/groceries/butter.jpg"}
+{"type":"grocery","keywords":"buttermilk","imgPath":"/groceries/buttermilk.jpg"}
 {"type":"grocery","keywords":"cabbage","imgPath":"/groceries/cabbage.jpg"}
+{"type":"grocery","keywords":"coconut water","imgPath":"/groceries/coconut-water.jpg"}
 {"type":"grocery","keywords":"carrots","imgPath":"/groceries/carrots.jpg"}
 {"type":"grocery","keywords":"carrot juice","imgPath":"/groceries/carrot-juice.jpg"}
 {"type":"grocery","keywords":"cauliflower","imgPath":"/groceries/cauliflower.jpg"}
@@ -19,6 +22,7 @@
 {"type":"grocery","keywords":"dark chocolate","imgPath":"/groceries/dark-chocolate.jpg"}
 {"type":"grocery","keywords":"egg whites yolk","imgPath":"/groceries/egg.jpg"}
 {"type":"grocery","keywords":"eggplant","imgPath":"/groceries/eggplants.jpg"}
+{"type":"grocery","keywords":"garlic","imgPath":"/groceries/garlic.jpg"}
 {"type":"grocery","keywords":"ginger","imgPath":"/groceries/ginger.jpg"}
 {"type":"grocery","keywords":"granola energy bars","imgPath":"/groceries/granola-bar.jpg"}
 {"type":"grocery","keywords":"grapes green purple","imgPath":"/groceries/grapes.jpg"}
@@ -36,6 +40,7 @@
 {"type":"grocery","keywords":"peanuts dry roasted salted","imgPath":"/groceries/peanuts.jpg"}
 {"type":"grocery","keywords":"pear","imgPath":"/groceries/pears.jpg"}
 {"type":"grocery","keywords":"peppers","imgPath":"/groceries/peppers.jpg"}
+{"type":"grocery","keywords":"pistachios pista","imgPath":"/groceries/pistachios.jpg"}
 {"type":"grocery","keywords":"pizza frozen","imgPath":"/groceries/pizza.jpg"}
 {"type":"grocery","keywords":"potatoes yello baby sweet","imgPath":"/groceries/potatoes.jpg"}
 {"type":"grocery","keywords":"rice brown grains quinoa white","imgPath":"/groceries/rice.jpg"}
