@@ -217,7 +217,6 @@ var App = React.createClass({
 				document.getElementById("pantry-list-container").style.display = 'none';
 				document.getElementById("shopping-list-container").style.display = '';
 				document.getElementById('toggle-list').innerHTML = "Shopping List";
-				document.getElementById("newGroceryInput").focus();
 			}
 		}	
 
