@@ -14,6 +14,7 @@
 {"type":"grocery","keywords":"cauliflower","imgPath":"/groceries/cauliflower.jpg"}
 {"type":"grocery","keywords":"coffee k-cups","imgPath":"/groceries/coffee.jpg"}
 {"type":"grocery","keywords":"cookies","imgPath":"/groceries/cookies.jpg"}
+{"type":"grocery","keywords":"sweet corn","imgPath":"/groceries/corn.jpg"}
 {"type":"grocery","keywords":"cucumbers","imgPath":"/groceries/cucumbers.jpg"}
 {"type":"grocery","keywords":"dark chocolate","imgPath":"/groceries/dark-chocolate.jpg"}
 {"type":"grocery","keywords":"egg whites yolk","imgPath":"/groceries/egg.jpg"}
@@ -24,6 +25,7 @@
 {"type":"grocery","keywords":"green peas","imgPath":"/groceries/green-peas.jpg"}
 {"type":"grocery","keywords":"guacamole","imgPath":"/groceries/guacamole.jpg"}
 {"type":"grocery","keywords":"honey organic","imgPath":"/groceries/honey.jpg"}
+{"type":"grocery","keywords":"hummus","imgPath":"/groceries/hummus.jpg"}
 {"type":"grocery","keywords":"lemon juice","imgPath":"/groceries/lemons.jpg"}
 {"type":"grocery","keywords":"lentils cooked","imgPath":"/groceries/lentils.jpg"}
 {"type":"grocery","keywords":"mint leaves","imgPath":"/groceries/mint.jpg"}
@@ -49,3 +51,4 @@
 {"type":"grocery","keywords":"tomatoes red","imgPath":"/groceries/tomatoes.jpg"}
 {"type":"grocery","keywords":"tea bags","imgPath":"/groceries/tea.jpg"}
 {"type":"grocery","keywords":"toast","imgPath":"/groceries/toast.jpg"}
+{"type":"grocery","keywords":"greek yogurt","imgPath":"/groceries/yogurt.jpg"}
