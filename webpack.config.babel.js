@@ -24,7 +24,7 @@ export default {
   ],
   resolve: {
     root: ComponentWalker ('./src', 'absolute'),
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.json', '.js', '.jsx']
   },
   module: {
     loaders: [
@@ -43,7 +43,9 @@ export default {
       { test: /\.sass$/,
         loader: ExtractTextPlugin.extract('css!sass?indentedSyntax') },
       { test: /\.less$/,
-        loader: ExtractTextPlugin.extract ('css!less') }
+        loader: ExtractTextPlugin.extract ('css!less') },
+        {include: /\.json$/, 
+          loaders: ["json-loader"]}
     ],
   }
 }
