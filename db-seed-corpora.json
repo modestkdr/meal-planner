@@ -1,11 +1,13 @@
 {"type":"grocery","keywords":"raw almonds","imgPath":"/groceries/almonds.jpg"}
 {"type":"grocery","keywords":"almond silk milk","imgPath":"/groceries/almond-milk.jpg"}
 {"type":"grocery","keywords":"apples","imgPath":"/groceries/apples.jpg"}
+{"type":"grocery","keywords":"asparagus","imgPath":"/groceries/asparagus.jpg"}
 {"type":"grocery","keywords":"bagels","imgPath":"/groceries/bagels.jpg"}
 {"type":"grocery","keywords":"baked beans","imgPath":"/groceries/baked-beans.jpg"}
 {"type":"grocery","keywords":"bananas","imgPath":"/groceries/bananas.jpg"}
 {"type":"grocery","keywords":"beets red","imgPath":"/groceries/beets.jpg"}
 {"type":"grocery","keywords":"bell peppers","imgPath":"/groceries/bell-peppers.jpg"}
+{"type":"grocery","keywords":"bok choy","imgPath":"/groceries/bok-choy.jpg"}
 {"type":"grocery","keywords":"bread","imgPath":"/groceries/bread.jpg"}
 {"type":"grocery","keywords":"broccoli","imgPath":"/groceries/broccoli.jpg"}
 {"type":"grocery","keywords":"butter","imgPath":"/groceries/butter.jpg"}
@@ -15,6 +17,7 @@
 {"type":"grocery","keywords":"carrots","imgPath":"/groceries/carrots.jpg"}
 {"type":"grocery","keywords":"carrot juice","imgPath":"/groceries/carrot-juice.jpg"}
 {"type":"grocery","keywords":"cauliflower","imgPath":"/groceries/cauliflower.jpg"}
+{"type":"grocery","keywords":"cereal","imgPath":"/groceries/cereal.jpg"}
 {"type":"grocery","keywords":"coffee k-cups","imgPath":"/groceries/coffee.jpg"}
 {"type":"grocery","keywords":"cookies","imgPath":"/groceries/cookies.jpg"}
 {"type":"grocery","keywords":"sweet corn","imgPath":"/groceries/corn.jpg"}
@@ -26,10 +29,12 @@
 {"type":"grocery","keywords":"ginger","imgPath":"/groceries/ginger.jpg"}
 {"type":"grocery","keywords":"granola energy bars","imgPath":"/groceries/granola-bar.jpg"}
 {"type":"grocery","keywords":"grapes green purple","imgPath":"/groceries/grapes.jpg"}
+{"type":"grocery","keywords":"green beans","imgPath":"/groceries/green-beans.jpg"}
 {"type":"grocery","keywords":"green peas","imgPath":"/groceries/green-peas.jpg"}
 {"type":"grocery","keywords":"guacamole","imgPath":"/groceries/guacamole.jpg"}
 {"type":"grocery","keywords":"honey organic","imgPath":"/groceries/honey.jpg"}
 {"type":"grocery","keywords":"hummus","imgPath":"/groceries/hummus.jpg"}
+{"type":"grocery","keywords":"ketchup","imgPath":"/groceries/ketchup.jpg"}
 {"type":"grocery","keywords":"lemon juice","imgPath":"/groceries/lemons.jpg"}
 {"type":"grocery","keywords":"lentils cooked","imgPath":"/groceries/lentils.jpg"}
 {"type":"grocery","keywords":"mint leaves","imgPath":"/groceries/mint.jpg"}
@@ -42,6 +47,7 @@
 {"type":"grocery","keywords":"peppers","imgPath":"/groceries/peppers.jpg"}
 {"type":"grocery","keywords":"pistachios pista","imgPath":"/groceries/pistachios.jpg"}
 {"type":"grocery","keywords":"pizza frozen","imgPath":"/groceries/pizza.jpg"}
+{"type":"grocery","keywords":"popcorn","imgPath":"/groceries/popcorn.jpg"}
 {"type":"grocery","keywords":"potatoes yello baby sweet","imgPath":"/groceries/potatoes.jpg"}
 {"type":"grocery","keywords":"rice brown grains quinoa white","imgPath":"/groceries/rice.jpg"}
 {"type":"grocery","keywords":"radish","imgPath":"/groceries/radishes.jpg"}
