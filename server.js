@@ -1,7 +1,8 @@
 import Webpack from './server/server.webpack';
 import Express from './server/server.express'
+require('dotenv').config();
 
-var PORT_NUMBER = 3000;
+var PORT_NUMBER = parseInt(process.env.PORT_NUMBER);
 var isProduction = process.env.NODE_ENV === 'production';
 
 if (isProduction) {

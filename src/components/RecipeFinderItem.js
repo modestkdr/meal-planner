@@ -12,7 +12,7 @@ var RecipeFinderItem = React.createClass({
   	var item = this.props.item;
 
     return (
-      <li className="list-group-item">
+      <li className="list-group-item recipe-finder-item">
       	{item.text}
       	<button onClick={this._removeFromRecipeFinder} className="pull-right" 
         	type="button" aria-label="Remove">x</button>

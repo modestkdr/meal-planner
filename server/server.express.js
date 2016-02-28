@@ -1,4 +1,5 @@
 import Express from "express";
+require('dotenv').config();
 var router = Express.Router();
 import {
   GroceryAdd,GroceryUpdate,GroceryRemove,GroceriesFind,RecipesFind,Recipe,RecipeAdd,MealAdd,MealsFind
@@ -19,7 +20,7 @@ export default function (port, isProduction) {
   }
 
   server.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", process.env.ACCESS_CONTROL_ALLOW_ORIGIN);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
     next();

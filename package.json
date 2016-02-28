@@ -20,6 +20,7 @@
     "better-console": "~0.2.4",
     "body-parser": "^1.12.4",
     "css-loader": "^0.16.0",
+    "dotenv": "^2.0.0",
     "express": "~4",
     "extract-text-webpack-plugin": "~0.8.2",
     "file-loader": "~0.8.4",

@@ -47,5 +47,8 @@ export default {
         {include: /\.json$/, 
           loaders: ["json-loader"]}
     ],
+  },
+  node: {
+    fs: "empty"
   }
 }

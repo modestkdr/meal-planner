@@ -16,7 +16,7 @@
  
     #toggle-list {padding: 0.4rem 0;background: #1F1F1F;}
     #toggle-list:hover {cursor: pointer;}
-    #newGroceryInput{color:#666;width: 90%;}
+    #newGroceryInput{color:#666;width: 90%;margin-left: 0.25rem;padding-left: 0.75rem;}
     .wrapper::-webkit-scrollbar {width: .6rem;}
     .wrapper::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
@@ -47,6 +47,9 @@
     #shopping-list-container li,#pantry-list-container li {
       float: none;text-transform: capitalize;margin:0.1rem;
     }
+    #pantry-list-container li:hover {
+        cursor: pointer;
+    }
     .show-inline {display: inline-block;}
     .draggable-list li:hover {cursor: pointer;}
     .list-group {min-height: 5rem;}
@@ -58,6 +61,8 @@
     .calendar-day {min-height: 10rem;}
     .calendar-day ul{margin-top: 3rem;}
     .calendar-day .list-group-item {border-bottom: 1px solid #2F2D2D;}
+    .calendar-day .list-group-item::first-letter {text-transform: uppercase;}
+    .recipe-finder-item::first-letter {text-transform: uppercase;}
     .calendar-day .list-group-item span {color:#C3C3D2;}
     .calendar-day hr {border-top: 1px solid #545151;}
     </style>
