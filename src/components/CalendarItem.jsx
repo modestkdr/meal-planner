@@ -1,6 +1,7 @@
 import React from 'react';
 var AppActions = require('../actions/AppActions');
 var moment = require('moment-timezone');
+import {  Link } from 'react-router';
 
 var CalendarItem = React.createClass({
 
