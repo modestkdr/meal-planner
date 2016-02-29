@@ -1,5 +1,6 @@
 import React from 'react';
 var AppActions = require('../actions/AppActions');
+var moment = require('moment-timezone');
 
 var CalendarItem = React.createClass({
 
@@ -17,20 +18,24 @@ var CalendarItem = React.createClass({
       var recipeUrl = "/recipe/" + item.recipeId;
       
       return (
-              <li className="list-group-item" key={index}>
+              <li className="list-group-item">
                 <div>
                   <Link to={recipeUrl}>
-                    {items[index].text}
-                  </Link> at {moment.tz(items[index].planned_for, "America/New_York").format('hA')}
+                    {item.text}
+                  </Link> at {moment.tz(item.planned_for, "America/New_York").format('hA')}
+                  <button onClick={this._removeFromCalendar} className="pull-right" 
+                    type="button" aria-label="Remove">x</button>
                 </div>
               </li>
       );
     } 
     else {
       return (
-      <li className="list-group-item" key={index}>
+      <li className="list-group-item">
         <div>
-          {items[index].text} at {moment.tz(items[index].planned_for, "America/New_York").format('hA')}
+          {item.text} at {moment.tz(item.planned_for, "America/New_York").format('hA')}
+          <button onClick={this._removeFromCalendar} className="pull-right" 
+            type="button" aria-label="Remove">x</button>
         </div>
       </li>
       );
