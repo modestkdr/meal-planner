@@ -7,7 +7,11 @@ var url = 'mongodb://localhost:27017/mealplanner';
 
 var findMeals = function(db, callback) {
 
-    db.collection('meals').find().sort( { planned_for: 1 }).toArray(
+	// Get Calendar items from the past seven days 
+    db.collection('meals')
+    .find({planned_for:{$gte: new Date(new Date().setDate(new Date().getDate()-7))}})
+    .sort( { planned_for: 1 })
+    .toArray(
     	function (err, result) {
 	      if (err) {
 	        console.log(err);

@@ -2,7 +2,9 @@ import Express from "express";
 require('dotenv').config();
 var router = Express.Router();
 import {
-  GroceryAdd,GroceryUpdate,GroceryRemove,GroceriesFind,RecipesFind,Recipe,RecipeAdd,MealAdd,MealsFind
+  GroceryAdd,GroceryUpdate,GroceryRemove,GroceriesFind,
+  RecipesFind,Recipe,RecipeAdd,
+  MealAdd,MealsFind,MealRemove
 } from './routes';
 
 export default function (port, isProduction) {
@@ -38,7 +40,8 @@ export default function (port, isProduction) {
   server.use('/recipe/id', Recipe);
   server.use('/meal/add', MealAdd);
   server.use('/meal/find',MealsFind);
-  
+  server.use('/meal/remove', MealRemove);
+
   server.listen (port, () => {
     console.log ('Express is listening on port ' + port);
   });

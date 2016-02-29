@@ -1,6 +1,7 @@
 import React from 'react';
 var moment = require('moment-timezone');
 import {  Link } from 'react-router';
+var CalendarItem = require('./CalendarItem');
 
 var Calendar = React.createClass({
 
@@ -15,28 +16,9 @@ var Calendar = React.createClass({
 			if(dateObj.month() === itemDateObj.month() && 
 				dateObj.date() === itemDateObj.date() && 
 				dateObj.year() === itemDateObj.year()) {
-				
-				if(items[index].mealType === 'recipe') {
-					var recipeUrl = "/recipe/" + items[index].recipeId;
-
 					result.push(
-						<li className="list-group-item" key={index}>
-							<div>
-								<Link to={recipeUrl}>
-									{items[index].text}
-								</Link> at {moment.tz(items[index].planned_for, "America/New_York").format('hA')}
-							</div>
-						</li>
+						<CalendarItem key={index} item={items[index]} />
 					);
-				} else {
-					result.push(
-						<li className="list-group-item" key={index}>
-							<div>
-								{items[index].text} at {moment.tz(items[index].planned_for, "America/New_York").format('hA')}
-							</div>
-						</li>
-					);
-				}
 			}
 		}
 		return result;

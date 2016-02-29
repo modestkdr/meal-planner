@@ -14,10 +14,10 @@ function scheduleMeal(text,mealType,plannedFor,id,recipeId) {
     text: text,
     recipeId:recipeId
   };
+}
 
-  // if(typeof recipeId !== 'undefined'){
-  //   _mealCalendarItems[id][recipeId] = recipeId;
-  // }
+function removeMeal(id) {
+  delete _mealCalendarItems[id];
 }
 
 var MealStore = assign({}, EventEmitter.prototype, {
@@ -52,7 +52,12 @@ AppDispatcher.register(function(action) {
       scheduleMeal(action.itemText,action.mealType,action.planned_for,action.id,action.recipeId);
       MealStore.emitChange();
       break;
-      
+
+    case AppConstants.REMOVE_ITEM_FROM_CALENDAR:
+      removeMeal(action.id);
+      MealStore.emitChange();
+      break;
+
     default:    
   }
 });

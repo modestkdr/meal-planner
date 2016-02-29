@@ -134,6 +134,28 @@ var AppActions = {
     });
   },
 
+  removeItemFromCalendar(id) {
+    Superagent
+       .post('/meal/remove')
+       .send({
+          id: id
+        })
+       .set('Accept', 'application/json')
+       .end(function(err, res){
+         if (err || !res.ok) {
+           console.log('remove meal from calendar: error');
+         } else {
+          //console.log('remove meal: xhr success');
+          //console.log(JSON.stringify(res.body));
+         }
+       });
+
+    AppDispatcher.dispatch({
+      actionType: AppConstants.REMOVE_ITEM_FROM_CALENDAR,
+      id: id
+    });
+  },
+
   scheduleMeal(mealType,entity,timestamp){
     
     if(mealType === "recipe")
